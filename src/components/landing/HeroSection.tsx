@@ -57,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onLoginRedirect }) => 
               GET STARTED FREE
               <TerminalSquare className="w-4 h-4" />
             </button>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-precision btn-glitch-hover px-8 py-4 font-label-mono text-label-mono flex items-center justify-center gap-3 cursor-pointer no-underline text-on-surface">
+            <a href="https://github.com/1varun0/productivity" target="_blank" rel="noreferrer" className="btn-precision btn-glitch-hover px-8 py-4 font-label-mono text-label-mono flex items-center justify-center gap-3 cursor-pointer no-underline text-on-surface">
               STAR ON GITHUB
               <GitBranch className="w-4 h-4" />
             </a>
