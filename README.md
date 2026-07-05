@@ -79,22 +79,26 @@ The codebase is organized using a feature-based architecture for optimal scalabi
 
 ```text
 src/
-├── components/   # Global reusable UI components (Modals, Layouts, Landing)
-├── features/     # Feature-specific modules (The core application logic)
-│   ├── habits/
-│   ├── nexus/
-│   ├── timetable/
-│   ├── workspace/
-│   ├── tasks/
-│   ├── lists/
-│   ├── timer/
-│   ├── inbox/
-│   ├── captures/
-│   └── focus-chamber/
-├── pages/        # Global pages and routing entry points
-├── store/        # Global Zustand state stores
-├── hooks/        # Shared custom React hooks
-└── lib/          # Utilities, API clients (Supabase), and configuration
+├── assets/       # Static assets (images, svg icons, fonts)
+├── components/   # Global UI components (CommandPalette, Modals, Layout, Landing)
+├── features/     # Feature-based modules isolating domain logic
+│   ├── habits/         # Habit tracking and visualization
+│   ├── nexus/          # Markdown editor and note-taking
+│   ├── timetable/      # 24-hour visual scheduling grid
+│   ├── workspace/      # Collaborative team projects and chat
+│   ├── tasks/          # Task management
+│   ├── lists/          # List management
+│   ├── timer/          # Focus timer logic
+│   ├── inbox/          # Global inbox for captures
+│   ├── captures/       # Quick capture system
+│   └── focus-chamber/  # Immersive distraction-free environment
+├── hooks/        # Global custom React hooks (useAuth, useCapture)
+├── lib/          # Core utilities and clients (e.g., Supabase client)
+├── pages/        # Root-level route components and legal pages
+├── providers/    # React Context providers (AuthProvider)
+├── store/        # Global Zustand state stores (CommandPalette, Profile, etc.)
+├── types/        # Global TypeScript interfaces and type definitions
+└── utils/        # General helper functions and utilities
 ```
 
 **Technology Stack:**
