@@ -35,3 +35,7 @@ dist-ssr
 stitch*
 stitch_assets/
 stitch_downloads/
+
+# Flux Assets
+flux.png
+flux.html
