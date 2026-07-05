@@ -1,10 +1,9 @@
-import { LayoutDashboard, Activity, Calendar, Plus, User } from 'lucide-react';
+import { LayoutDashboard, Activity, Calendar, Plus } from 'lucide-react';
 import { useStore } from '@/store/useStore';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export function BottomBar() {
   const openCaptureModal = useStore((state) => state.openCaptureModal);
-  const openSettingsModal = useStore((state) => state.openSettingsModal);
   const setActiveListId = useStore((state) => state.setActiveListId);
   const navigate = useNavigate();
   const location = useLocation();
