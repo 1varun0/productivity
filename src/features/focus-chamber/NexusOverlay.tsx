@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NexusView } from '@/features/nexus/components/NexusView';
 import { X } from 'lucide-react';
 import { useNexusStore } from '@/features/nexus/store/useNexusStore';
+
+const NexusView = lazy(() => import('@/features/nexus/components/NexusView').then(m => ({ default: m.NexusView })));
 
 interface NexusOverlayProps {
   isOpen: boolean;
@@ -78,7 +79,13 @@ export function NexusOverlay({ isOpen, onClose, timeLeft, formatTime }: NexusOve
             
             {/* The full Nexus View */}
             <div className="flex-1 overflow-hidden relative">
-              <NexusView isOverlay={true} />
+              <Suspense fallback={
+                <div className="flex h-full w-full items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-white/20 border-t-white/60 rounded-full animate-spin" />
+                </div>
+              }>
+                <NexusView isOverlay={true} />
+              </Suspense>
             </div>
           </div>
         </motion.div>

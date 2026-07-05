@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import type { ReactNode } from 'react';
+import { type ReactNode, lazy, Suspense } from 'react';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
 import { BottomBar } from './BottomBar';
@@ -7,7 +7,8 @@ import { useStore } from '@/store/useStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GlobalMentalCapture } from '@/features/inbox/components/GlobalMentalCapture';
 import { CommandPalette } from '@/components/CommandPalette';
-import { FocusEnvironment } from '@/features/timer/components/FocusEnvironment';
+
+const FocusEnvironment = lazy(() => import('@/features/timer/components/FocusEnvironment').then(m => ({ default: m.FocusEnvironment })));
 
 export function AppLayout({ children }: { children: ReactNode }) {
   const focusState = useStore((state) => state.focusState);
@@ -53,7 +54,9 @@ export function AppLayout({ children }: { children: ReactNode }) {
               transition={{ duration: 1.5, ease: "easeInOut" }}
               className="fixed inset-0 z-50 flex items-center justify-center pointer-events-auto"
             >
-              <FocusEnvironment />
+              <Suspense fallback={null}>
+                <FocusEnvironment />
+              </Suspense>
             </motion.div>
           )}
         </AnimatePresence>
