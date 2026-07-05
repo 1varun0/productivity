@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import { type ReactNode, lazy, Suspense } from 'react';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
-import { BottomBar } from './BottomBar';
 import { useStore } from '@/store/useStore';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GlobalMentalCapture } from '@/features/inbox/components/GlobalMentalCapture';
@@ -40,9 +39,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
             {children}
           </div>
         </main>
-        <AnimatePresence>
-          {!isFocusing && !isTimetable && !isWorkspace && <BottomBar />}
-        </AnimatePresence>
+
 
         <AnimatePresence>
           {!showDashboard && (
