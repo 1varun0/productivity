@@ -47,12 +47,6 @@ export function BottomBar() {
         >
           <Calendar size={20} />
         </button>
-        <button 
-          onClick={openSettingsModal}
-          className="w-12 h-12 flex items-center justify-center text-muted-foreground hover:text-foreground rounded-full hover:bg-accent/50 transition-colors active:scale-95"
-        >
-          <User size={20} />
-        </button>
       </div>
     </div>
   );
