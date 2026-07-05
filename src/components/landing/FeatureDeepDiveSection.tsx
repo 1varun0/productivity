@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue, transform } from 'framer-motion';
+import React, { useRef, useState } from 'react';
+import { motion, useScroll, useTransform, MotionValue, transform, useMotionValueEvent } from 'framer-motion';
 import { 
   TasksMockup, 
   FocusMockup, 
@@ -62,9 +62,19 @@ function FeatureRow({
   // Disable pointer events when not fully in focus to prevent blocking layers
   const pointerEvents = useTransform(progress, (v) => (v > inStart + fadeZone && v < (index === 5 ? 1 : outStart - fadeZone)) ? "auto" : "none");
 
+  const [isActive, setIsActive] = useState(false);
+  
+  useMotionValueEvent(progress, "change", (latest) => {
+    // Only mount if within visible range with a small buffer.
+    const active = latest >= inStart - fadeZone && latest <= outEnd + fadeZone;
+    if (active !== isActive) {
+      setIsActive(active);
+    }
+  });
+
   const textContent = (
     <motion.div style={{ x: textX }} className={mockupSide === 'left' ? 'order-1 md:order-2' : ''}>
-      {children[0]}
+      {isActive ? children[0] : null}
     </motion.div>
   );
 
@@ -73,7 +83,7 @@ function FeatureRow({
       style={{ x: mockupX, scale: mockupScale }}
       className={`border-tech bg-white/[0.02] aspect-video rounded-lg relative ${mockupSide === 'left' ? 'p-8' : 'p-4 md:p-8'} flex items-center justify-center overflow-hidden ${mockupSide === 'left' ? 'order-2 md:order-1' : ''}`}
     >
-      {children[1]}
+      {isActive ? children[1] : null}
     </motion.div>
   );
 
