@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#0b1c30",
+                        "tertiary-container": "#66768d",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-container": "#2170e4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#0058be",
+                        "outline-variant": "#c2c6d6",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#424754",
+                        "inverse-surface": "#2d3133",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#4d5d73",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-container": "#eceef0",
+                        "on-background": "#191c1e",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#005ac2",
+                        "surface": "#0f0f0f",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-container": "#fdfcff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#dae2fd",
+                        "outline": "#727785",
+                        "on-secondary-fixed": "#131b2e",
+                        "inverse-primary": "#adc6ff",
+                        "on-surface": "#ffffff",
+                        "on-secondary-container": "#5c647a",
+                        "on-primary-container": "#fefcff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#1a1a1a",
+                        "surface-bright": "#1a1a1a",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-primary-fixed": "#001a42",
+                        "primary-fixed-dim": "#adc6ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "background": "#0f0f0f",
+                        "secondary-container": "#dae2fd",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "secondary": "#565e74",
+                        "surface-container-low": "#121212"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "3xl": "64px",
+                        "2xl": "48px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "base": "8px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0f0f0f; color: #ffffff; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .custom-scrollbar::-webkit-scrollbar { height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1a1a1a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .matrix-cell { width: 36px; min-width: 36px; height: 36px; }
+        .sticky-col { position: sticky; left: 0; background-color: #0f0f0f; z-index: 10; width: 220px; min-width: 220px; }
+        .habit-name { font-size: 13px; color: rgba(255, 255, 255, 0.85); }
+        .label-caps { font-size: 10px; color: #727785; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+        .checkbox-cell { border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.2s ease; cursor: pointer; }
+        .checkbox-cell:hover:not(.future) { border-color: rgba(255, 255, 255, 0.2); }
+        .checkbox-cell.checked { display: flex; align-items: center; justify-content: center; }
+        .checkbox-cell.future { opacity: 0.3; cursor: default; }
+        .today-highlight { border-color: #0058be !important; }
+        .today-text { color: #0058be !important; font-weight: 700; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+<!-- Sidebar Anchor -->
+<aside class="h-screen w-64 border-r border-outline-variant dark:border-outline flex flex-col py-lg px-md bg-surface dark:bg-inverse-surface shadow-sm dark:shadow-none shrink-0">
+<div class="flex items-center gap-3 mb-xl px-sm">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary">Flux</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-fixed-variant transition-colors duration-200 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-fixed-variant transition-colors duration-200 active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-body-md text-body-md">Planner</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-inverse-primary bg-primary-fixed dark:bg-on-primary-fixed-variant rounded-lg border-l-4 border-primary active:scale-95 transform transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-body-md text-body-md">Habits</span>
+</a>
+</nav>
+<button class="mt-4 mx-sm bg-primary text-on-primary py-3 px-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            New Task
+        </button>
+<div class="mt-auto space-y-1 pt-lg border-t border-outline-variant dark:border-outline">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-secondary-fixed-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full bg-background overflow-hidden">
+<!-- Top Nav Anchor -->
+<header class="flex justify-between items-center w-full h-16 px-margin-desktop sticky top-0 z-40 bg-white dark:bg-surface-container-highest shadow-sm dark:shadow-none border-b border-outline-variant/10">
+<div class="flex items-center gap-4">
+<span class="label-caps">OCTOBER 2023</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors" data-icon="history">history</span>
+</div>
+<button class="text-primary font-bold text-label-md border border-primary/20 px-3 py-1 rounded hover:bg-primary/5 transition-all">Upgrade</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A professional headshot of a person with a minimalist aesthetic, softly lit in a modern office environment. The lighting is clean and balanced, emphasizing high-quality digital workspace vibes. The background is a blurred soft grey, maintaining focus on the individual's approachable and confident expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Fe-esNWpAYY9x1DeKsH_LKpmpZ3VNeKwzJZLUrDk46mnzbacKQulsD6Nr5M6jgXH1AV--1uHSybkKMPir8lIunjCuqw-V_WO5xWrVrcq9EE0v4HlPedCFfkp2SRzHuIdY7TDUAWQ4sP6Misda6009EKmG66fBMgvDX6YHU5NWL5D0KT1qYQqThLdOs8vRzBF2MS-Z2X6jOcpPEIHoanKyXG_ejCDyTsKn01YUEVhLuxl3bRBin0spqr5jg-L3LvN3nGtNDjZPAUf"/>
+</div>
+</header>
+<!-- Habits Content Area -->
+<div class="flex-1 overflow-auto custom-scrollbar flex flex-col">
+<div class="min-w-max p-margin-desktop pt-lg">
+<!-- Matrix Container -->
+<div class="border border-outline-variant/10 rounded-xl bg-surface-container-low overflow-hidden">
+<!-- Header Row -->
+<div class="flex">
+<div class="sticky-col h-16 flex flex-col justify-end pb-sm px-lg border-b border-r border-outline-variant/10">
+<span class="label-caps">HABIT TRACKER</span>
+</div>
+<div class="flex">
+<!-- Generation logic for days -->
+<script>
+                                const days = Array.from({length: 31}, (_, i) => i + 1);
+                                const today = 24;
+                                document.write(days.map(d => `
+                                    <div class="matrix-cell flex flex-col items-center justify-end pb-sm border-b border-outline-variant/10 ${d === today ? 'today-highlight' : ''}">
+                                        <span class="label-caps ${d === today ? 'today-text' : ''}">${d}</span>
+                                    </div>
+                                `).join(''));
+                            </script>
+</div>
+</div>
+<!-- Habit Rows -->
+<div id="habit-matrix">
+<!-- Habits will be rendered by JS for state management simulation -->
+</div>
+<!-- Footer / Add Habit -->
+<div class="flex">
+<div class="sticky-col flex items-center px-lg py-md border-r border-outline-variant/10 bg-surface-container-low">
+<button class="flex items-center gap-2 text-primary font-label-md hover:translate-x-1 transition-transform" onclick="addHabit()">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span class="label-caps text-primary">CAPTURE</span>
+</button>
+</div>
+<div class="flex" id="footer-scores">
+<!-- Daily scores generated by JS -->
+</div>
+</div>
+</div>
+<!-- Stats Section - Bento Style -->
+<div class="grid grid-cols-4 gap-6 mt-lg">
+<div class="col-span-1 bg-surface-container-highest p-lg rounded-xl border border-outline-variant/5">
+<span class="label-caps block mb-2">AVG COMPLETION</span>
+<div class="flex items-end gap-2">
+<span class="font-display-lg text-primary">84%</span>
+<span class="text-tertiary font-label-sm mb-2">+2% vs LW</span>
+</div>
+</div>
+<div class="col-span-1 bg-surface-container-highest p-lg rounded-xl border border-outline-variant/5">
+<span class="label-caps block mb-2">LONGEST STREAK</span>
+<div class="flex items-end gap-2">
+<span class="font-display-lg text-primary">42</span>
+<span class="text-tertiary font-label-sm mb-2">Days</span>
+</div>
+</div>
+<div class="col-span-2 bg-surface-container-highest p-lg rounded-xl border border-outline-variant/5">
+<span class="label-caps block mb-2">MONTHLY PROGRESS</span>
+<div class="w-full bg-surface-dim h-3 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full w-[78%]"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="label-caps">78% TARGET REACHED</span>
+<span class="label-caps">6 DAYS LEFT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        const habits = [
+            { name: "Deep Work (4h)", color: "#2170e4", streak: 12, data: generateData(12, 24) },
+            { name: "Daily Exercise", color: "#4CAF50", streak: 5, data: generateData(5, 24) },
+            { name: "Read 20 Pages", color: "#9C27B0", streak: 2, data: generateData(2, 24) },
+            { name: "Meditate 10m", color: "#FF9800", streak: 8, data: generateData(8, 24) },
+            { name: "Sleep by 11PM", color: "#607D8B", streak: 0, data: generateData(0, 24) },
+            { name: "Hydrate (3L)", color: "#00BCD4", streak: 15, data: generateData(15, 24) }
+        ];
+
+        function generateData(streak, today) {
+            let data = new Array(31).fill(false);
+            // Randomly fill past days
+            for(let i=0; i < today - 1; i++) {
+                data[i] = Math.random() > 0.3;
+            }
+            // Ensure current streak is reflected
+            for(let i = today - 1; i > Math.max(-1, today - 1 - streak); i--) {
+                data[i] = true;
+            }
+            return data;
+        }
+
+        function renderHabits() {
+            const container = document.getElementById('habit-matrix');
+            const footer = document.getElementById('footer-scores');
+            const today = 24;
+
+            container.innerHTML = habits.map(habit => `
+                <div class="flex border-b border-outline-variant/5 group">
+                    <div class="sticky-col flex items-center justify-between px-lg py-sm border-r border-outline-variant/10 group-hover:bg-surface-container-highest transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full" style="background-color: ${habit.color}"></div>
+                            <span class="habit-name">${habit.name}</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[11px] font-bold text-tertiary">${habit.streak}</span>
+                            ${habit.streak >= 3 ? '<span class="text-[10px]">🔥</span>' : ''}
+                        </div>
+                    </div>
+                    <div class="flex">
+                        ${habit.data.map((done, i) => {
+                            const isToday = (i + 1) === today;
+                            const isFuture = (i + 1) > today;
+                            return `
+                                <div class="matrix-cell checkbox-cell ${done ? 'checked' : ''} ${isFuture ? 'future' : ''} ${isToday ? 'today-highlight' : ''}" 
+                                     style="${done ? `background-color: ${habit.color}15;` : ''}"
+                                     onclick="${isFuture ? '' : `toggleCell(${habits.indexOf(habit)}, ${i})`}">
+                                    ${done ? `<span class="material-symbols-outlined text-[14px]" style="color: ${habit.color}; font-variation-settings: 'FILL' 1;">check_circle</span>` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Calculate Footer Scores
+            const dailyCounts = new Array(31).fill(0).map((_, i) => {
+                return habits.reduce((acc, h) => acc + (h.data[i] ? 1 : 0), 0);
+            });
+
+            footer.innerHTML = dailyCounts.map((count, i) => {
+                const total = habits.length;
+                const ratio = count / total;
+                let colorClass = "text-on-surface-variant opacity-20";
+                if(i + 1 <= today) {
+                    if(ratio === 1) colorClass = "text-green-500";
+                    else if(ratio >= 0.5) colorClass = "text-primary";
+                    else colorClass = "text-on-surface-variant";
+                }
+                
+                return `
+                    <div class="matrix-cell flex items-center justify-center py-md border-b border-outline-variant/10">
+                        <span class="font-bold text-[10px] ${colorClass}">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.toggleCell = function(habitIdx, dayIdx) {
+            habits[habitIdx].data[dayIdx] = !habits[habitIdx].data[dayIdx];
+            // Simple streak recalculation (backwards from current)
+            let streak = 0;
+            const today = 24;
+            for(let i = today-1; i >= 0; i--) {
+                if(habits[habitIdx].data[i]) streak++;
+                else break;
+            }
+            habits[habitIdx].streak = streak;
+            renderHabits();
+        };
+
+        window.addHabit = function() {
+            const name = prompt("Enter habit name:");
+            if(name) {
+                habits.push({
+                    name: name,
+                    color: '#' + Math.floor(Math.random()*16777215).toString(16),
+                    streak: 0,
+                    data: new Array(31).fill(false)
+                });
+                renderHabits();
+            }
+        };
+
+        renderHabits();
+    </script>
+</body></html>

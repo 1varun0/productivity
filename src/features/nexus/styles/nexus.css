@@ -1,0 +1,69 @@
+@keyframes nexus-float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-nexus-float {
+  animation: nexus-float 8s ease-in-out infinite;
+}
+
+.nexus-card-delay-1 { animation-delay: 0s; }
+.nexus-card-delay-2 { animation-delay: -2s; }
+.nexus-card-delay-3 { animation-delay: -4s; }
+.nexus-card-delay-4 { animation-delay: -6s; }
+
+.nexus-nebula-bg {
+  /* Extremely subtle, low-opacity nebula effect for the background */
+  background-image: 
+      radial-gradient(circle at 15% 50%, rgba(0, 242, 255, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 85% 30%, rgba(83, 74, 183, 0.03) 0%, transparent 50%);
+}
+
+.nexus-glass-card {
+  background: rgba(22, 22, 22, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nexus-glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(26, 26, 26, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Warmer styling for session memory/archival cards */
+.nexus-memory-card {
+  background: rgba(30, 26, 26, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 180, 171, 0.1); 
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.nexus-memory-card:hover {
+  border-color: rgba(255, 180, 171, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(34, 28, 28, 0.7);
+  transform: translateY(-1px);
+}
+
+.nexus-action-icons {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nexus-glass-card:hover .nexus-action-icons,
+.nexus-memory-card:hover .nexus-action-icons {
+  opacity: 1;
+}
+
+.nexus-search-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: rgba(22, 22, 22, 0.8);
+}

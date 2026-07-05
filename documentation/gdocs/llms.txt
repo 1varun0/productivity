@@ -1,0 +1,54 @@
+# Peak Hub
+
+> A premium dark-mode productivity suite combining task management, habit tracking, markdown note-taking (Nexus), weekly timetable planning, immersive focus sessions (Focus Chamber), and collaborative project workspaces.
+
+## Documentation
+
+### Project Rules & Conventions
+- [AGENTS.md](./AGENTS.md): AI coding rules, tech stack declaration, directory structure, architectural conventions, and negative rules (libraries/patterns to avoid)
+
+### Design System
+- [DESIGN.md](./DESIGN.md): Visual identity tokens — color palette, typography scale, spacing, border radii, shadows, glassmorphism patterns, animation system, and component states
+
+### Architecture
+- [ARCHITECTURE.md](./ARCHITECTURE.md): C4 Model diagrams (System Context, Container), data model with 28 Postgres tables, feature-to-route mapping, and state management architecture
+- [ADR-0001: Initial Architecture](./docs/adr/0001-initial-architecture.md): Retroactive architecture decision records covering framework, backend, state management, styling, animation, and directory structure choices
+- [DATABASE.md](./DATABASE.md): Complete database schema documentation — Mermaid ER diagram, data dictionary for all 28 tables, indexes, check constraints, unique constraints, and RLS policy summary
+
+### Getting Started
+- [README.md](./README.md): Step-by-step tutorial for local development setup (install, configure, launch)
+
+## External Documentation
+
+### Core Stack
+- [React 19 Documentation](https://react.dev)
+- [Vite Documentation](https://vite.dev)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+
+### Styling & Animation
+- [Tailwind CSS v4 Documentation](https://tailwindcss.com/docs)
+- [Framer Motion Documentation](https://motion.dev/docs)
+
+### State & Data
+- [Zustand Documentation](https://zustand.docs.pmnd.rs/)
+- [TanStack React Query Documentation](https://tanstack.com/query/latest)
+
+### Backend
+- [Supabase Documentation](https://supabase.com/docs)
+- [Supabase JavaScript Client](https://supabase.com/docs/reference/javascript)
+- [Supabase Auth](https://supabase.com/docs/guides/auth)
+- [Supabase Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security)
+- [Supabase Edge Functions](https://supabase.com/docs/guides/functions)
+- [Supabase Realtime](https://supabase.com/docs/guides/realtime)
+- [Supabase Storage](https://supabase.com/docs/guides/storage)
+
+### UI Libraries
+- [Lucide React Icons](https://lucide.dev/icons/)
+- [React Router DOM v7](https://reactrouter.com/en/main)
+- [date-fns](https://date-fns.org/)
+- [react-markdown](https://remarkjs.github.io/react-markdown/)
+
+### Fonts
+- [Inter (Google Fonts)](https://fonts.google.com/specimen/Inter)
+- [JetBrains Mono (Google Fonts)](https://fonts.google.com/specimen/JetBrains+Mono)
+- [Material Symbols](https://fonts.google.com/icons)

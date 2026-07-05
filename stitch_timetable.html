@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Timetable - Weekly Grid</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#005398",
+                        "primary": "#c5c0ff",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-primary-fixed-variant": "#3f35a3",
+                        "on-secondary-container": "#a3c8ff",
+                        "on-tertiary-fixed-variant": "#00513e",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "tertiary-container": "#00664f",
+                        "on-secondary-fixed": "#001c39",
+                        "inverse-on-surface": "#313030",
+                        "on-surface-variant": "#c8c4d5",
+                        "background": "#131313",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#84d6b9",
+                        "on-secondary-fixed-variant": "#004883",
+                        "tertiary-fixed": "#a0f3d4",
+                        "on-primary-container": "#d1ccff",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#140067",
+                        "on-primary": "#28188c",
+                        "outline": "#928f9e",
+                        "on-secondary": "#00315d",
+                        "secondary": "#a4c9ff",
+                        "outline-variant": "#474553",
+                        "surface-tint": "#c5c0ff",
+                        "surface-bright": "#3a3939",
+                        "surface": "#131313",
+                        "surface-variant": "#353534",
+                        "on-tertiary-fixed": "#002117",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-container": "#534ab7",
+                        "tertiary": "#84d6b9",
+                        "surface-dim": "#131313",
+                        "surface-container-highest": "#353534",
+                        "inverse-primary": "#584fbc",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#e3dfff",
+                        "on-tertiary": "#00382a",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#c5c0ff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-tertiary-container": "#8ee1c3",
+                        // Custom grid colors requested
+                        "cat-sleep": "#4A4A6A",
+                        "cat-study": "#534AB7",
+                        "cat-work": "#185FA5",
+                        "cat-health": "#0F6E56",
+                        "cat-meals": "#BA7517",
+                        "cat-personal": "#993556",
+                        "cat-commute": "#7A4010",
+                        "cat-free": "#3A3A3A",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-xs": "8px",
+                        "margin-lg": "48px",
+                        "margin-md": "24px",
+                        "unit": "4px",
+                        "margin-sm": "16px",
+                        "gutter": "1px",
+                        "sidebar": "200px",
+                        "topbar": "104px", // 64px main + 40px info bar
+                        "cell-w": "64px",
+                        "cell-h": "56px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "body-mono": ["JetBrains Mono", "monospace"],
+                        "body-main": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                        "body-mono": ["12px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-main": ["13px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0f0f0f; color: #e5e2e1; margin: 0; padding: 0; overflow: hidden; }
+        .grid-cell { width: 64px; height: 56px; border-right: 0.5px solid #111111; border-bottom: 0.5px solid #111111; box-sizing: border-box; position: relative; }
+        .grid-cell:hover .hover-add { opacity: 1; }
+        .hover-add { opacity: 0; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background-color: #131313; transition: opacity 0.1s ease; cursor: pointer; }
+        .hover-add span { font-size: 16px; color: #474553; }
+        .time-block { position: absolute; top: 2px; bottom: 2px; border-radius: 4px; z-index: 10; box-sizing: border-box; overflow: hidden; padding: 4px; cursor: pointer; }
+        .time-block-inner { display: flex; flex-direction: column; height: 100%; }
+        .block-title { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; line-height: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .block-time { font-family: 'Inter', sans-serif; font-size: 10px; opacity: 0.7; }
+        
+        /* Custom scrollbar for grid */
+        ::-webkit-scrollbar { height: 8px; width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #353534; }
+        
+        .no-select { user-select: none; }
+    </style>
+</head>
+<body class="flex h-screen font-body-main text-body-main">
+<!-- SideNavBar -->
+<nav class="w-[200px] h-screen fixed left-0 top-0 border-r border-[#1e1e1e] flex flex-col py-margin-lg bg-[#0f0f0f] z-50">
+<div class="px-margin-md mb-margin-lg">
+<h1 class="font-label-caps text-label-caps tracking-widest text-on-surface uppercase">Productivity</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">V1.0.4</p>
+</div>
+<div class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 text-primary font-body-main border-l-[1.5px] border-primary pl-4 py-2 bg-surface-container-low transition-all duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span>Timetable</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Tasks</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+<span>Lists</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+<span>Habits</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">ads_click</span>
+<span>Goals</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant font-body-main pl-margin-md py-2 hover:text-on-surface hover:bg-surface-container-lowest transition-colors rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">center_focus_strong</span>
+<span>Focus</span>
+</a>
+</div>
+<div class="px-margin-md mt-auto pt-4">
+<button class="w-full bg-[#1E1E1E] border border-[#1E1E1E] text-white font-label-caps text-label-caps py-2 rounded uppercase flex items-center justify-center gap-2 hover:bg-[#2a2a2a] transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                NEW PROJECT
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-sidebar flex flex-col w-[calc(100%-200px)] h-screen">
+<!-- TopAppBar Area -->
+<header class="flex flex-col border-b border-[#1e1e1e] bg-[#0f0f0f] z-40 shrink-0">
+<!-- Main Top Bar -->
+<div class="h-16 flex justify-between items-center px-margin-md border-b border-[#111111]">
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface">Timetable</h2>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-1.5 text-on-surface-variant font-label-caps text-label-caps hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[14px]">adjust</span>
+                        ENTER FOCUS
+                    </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">settings</span></button>
+<button class="hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button>
+</div>
+</div>
+</div>
+<!-- Info Bar -->
+<div class="h-10 flex justify-between items-center px-margin-md bg-[#131313]">
+<span class="font-body-mono text-body-mono text-on-surface-variant opacity-70 text-[11px]">23 blocks · last saved just now</span>
+<button class="bg-[#534AB7] text-white font-label-caps text-label-caps px-4 py-1.5 rounded uppercase hover:bg-opacity-90 transition-opacity">SAVE</button>
+</div>
+</header>
+<!-- Grid Container -->
+<main class="flex-1 overflow-auto bg-[#0f0f0f] relative w-full" id="grid-container">
+<!-- Grid Header (Hours) -->
+<div class="flex sticky top-0 bg-[#0f0f0f] z-30 border-b border-[#1e1e1e] w-max">
+<!-- Top Left Corner -->
+<div class="w-[64px] h-[32px] sticky left-0 bg-[#0f0f0f] z-40 border-r border-[#1e1e1e] flex items-center justify-center border-b border-[#111111]">
+<span class="font-label-caps text-label-caps text-[#2e2e2e]">DAY</span>
+</div>
+<!-- Hour Labels -->
+<div class="flex" id="hour-headers">
+<!-- JS generated hours -->
+</div>
+</div>
+<!-- Grid Body -->
+<div class="flex flex-col w-max relative" id="grid-body">
+<!-- Today Indicator Line (Absolute positioned) -->
+<div class="absolute top-0 bottom-0 w-[1px] bg-[#534AB7] z-20 pointer-events-none" style="left: calc(64px + 64px * 9.5);">
+<div class="absolute top-0 -left-[2.5px] w-[6px] h-[6px] rounded-full bg-[#534AB7]"></div>
+</div>
+<!-- Days Rows -->
+<!-- JS Generated Rows -->
+</div>
+</main>
+</div>
+<!-- Modal Template (Hidden by default, shown for structure) -->
+<div class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center backdrop-blur-sm" id="add-modal">
+<div class="w-[280px] bg-[#161616] border border-[#1e1e1e] rounded flex flex-col">
+<div class="h-10 border-b border-[#1e1e1e] flex items-center justify-between px-4">
+<span class="font-label-sm text-label-sm uppercase">Add block</span>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="document.getElementById('add-modal').classList.add('hidden')"><span class="material-symbols-outlined text-[16px]">close</span></button>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">NAME</label>
+<input class="bg-[#0f0f0f] border border-[#1e1e1e] text-on-surface font-body-main text-body-main p-2 rounded focus:border-[#534AB7] focus:outline-none focus:ring-0 w-full" type="text" value="New Task"/>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">DAY</label>
+<select class="bg-[#0f0f0f] border border-[#1e1e1e] text-on-surface font-body-main text-body-main p-2 rounded focus:border-[#534AB7] focus:outline-none focus:ring-0 w-full appearance-none">
+<option>MON</option>
+<option selected="">TUE</option>
+<option>WED</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">TIME</label>
+<input class="bg-[#0f0f0f] border border-[#1e1e1e] text-on-surface font-body-main text-body-main p-2 rounded focus:border-[#534AB7] focus:outline-none focus:ring-0 w-full" type="text" value="09:00"/>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-2 border-t border-[#1e1e1e]">
+<label class="font-label-caps text-label-caps text-on-surface-variant">CATEGORY</label>
+<div class="flex gap-2 justify-between">
+<div class="w-4 h-4 rounded-full bg-[#4A4A6A] cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#534AB7] border border-white cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#185FA5] cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#0F6E56] cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#BA7517] cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#993556] cursor-pointer"></div>
+<div class="w-4 h-4 rounded-full bg-[#7A4010] cursor-pointer"></div>
+</div>
+</div>
+<button class="w-full bg-[#1E1E1E] border border-[#534AB7] text-white font-label-caps text-label-caps py-2 rounded uppercase mt-2 hover:bg-[#534AB7] transition-colors">
+                    CREATE BLOCK
+                </button>
+</div>
+</div>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hourHeaders = document.getElementById('hour-headers');
+            const gridBody = document.getElementById('grid-body');
+            const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            const todayIndex = 1; // TUE
+
+            // Generate Headers
+            for (let i = 0; i < 24; i++) {
+                const hour = i === 0 ? '12AM' : i < 12 ? `${i}AM` : i === 12 ? '12PM' : `${i-12}PM`;
+                const div = document.createElement('div');
+                div.className = 'w-[64px] h-[32px] border-b border-[#111111] flex items-center justify-center font-label-caps text-label-caps text-on-surface-variant opacity-50 shrink-0';
+                div.textContent = hour;
+                hourHeaders.appendChild(div);
+            }
+
+            // Categories
+            const cats = {
+                sleep: { c: '#4A4A6A' },
+                study: { c: '#534AB7' },
+                work: { c: '#185FA5' },
+                health: { c: '#0F6E56' },
+                meals: { c: '#BA7517' },
+                personal: { c: '#993556' }
+            };
+
+            // Sample Data (DayIndex: [ { name, cat, startHour, duration } ])
+            const schedule = {
+                0: [ // MON
+                    { n: 'Sleep', c: cats.sleep.c, s: 0, d: 7 },
+                    { n: 'Morning run', c: cats.health.c, s: 7, d: 1 },
+                    { n: 'Deep work', c: cats.work.c, s: 9, d: 2 },
+                    { n: 'Lunch', c: cats.meals.c, s: 12, d: 1 },
+                    { n: 'Class', c: cats.study.c, s: 14, d: 2 },
+                    { n: 'Study', c: cats.study.c, s: 19, d: 2 }
+                ],
+                1: [ // TUE
+                    { n: 'Sleep', c: cats.sleep.c, s: 0, d: 7 },
+                    { n: 'Gym', c: cats.health.c, s: 6, d: 1 }, // Overlaps sleep visually, keeping simple
+                    { n: 'Work', c: cats.work.c, s: 9, d: 3 },
+                    { n: 'Lunch', c: cats.meals.c, s: 12, d: 1 },
+                    { n: 'Work', c: cats.work.c, s: 14, d: 3 }
+                ]
+            };
+
+            // Generate Grid Rows
+            days.forEach((day, dIdx) => {
+                const isToday = dIdx === todayIndex;
+                const row = document.createElement('div');
+                row.className = `flex w-max relative ${isToday ? 'bg-[#0d0d18]' : ''}`;
+                
+                // Day Label Sticky Column
+                const dayCol = document.createElement('div');
+                dayCol.className = `w-[64px] h-[56px] sticky left-0 z-30 flex items-center justify-center font-label-sm text-label-sm border-r border-b ${isToday ? 'border-[#1e1e1e] bg-[#0d0d18] text-[#7F77DD]' : 'border-[#111111] bg-[#0f0f0f] text-on-surface-variant'} shrink-0`;
+                dayCol.textContent = day;
+                row.appendChild(dayCol);
+
+                // Empty Cells Background
+                for (let h = 0; h < 24; h++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell shrink-0';
+                    cell.innerHTML = `<div class="hover-add no-select" onclick="document.getElementById('add-modal').classList.remove('hidden')"><span class="material-symbols-outlined">add</span></div>`;
+                    row.appendChild(cell);
+                }
+
+                // Render Blocks for this day
+                if (schedule[dIdx]) {
+                    schedule[dIdx].forEach(block => {
+                        const bDiv = document.createElement('div');
+                        bDiv.className = 'time-block';
+                        // left = sticky width + (startHour * cellWidth)
+                        bDiv.style.left = `calc(64px + ${block.s * 64}px)`;
+                        // width = duration * cellWidth
+                        bDiv.style.width = `calc(${block.d * 64}px - 4px)`; // -4px for padding
+                        
+                        // Hex to RGBA for background
+                        const hex = block.c.replace('#', '');
+                        const r = parseInt(hex.substring(0,2), 16);
+                        const g = parseInt(hex.substring(2,4), 16);
+                        const b = parseInt(hex.substring(4,6), 16);
+                        
+                        bDiv.style.backgroundColor = `rgba(${r},${g},${b},0.1)`;
+                        bDiv.style.borderLeft = `2px solid ${block.c}`;
+
+                        // Determine label color (if background is too dark/light, but here we use text color matching border for minimalism)
+                        bDiv.innerHTML = `
+                            <div class="time-block-inner" style="color: ${block.c}">
+                                <span class="block-title">${block.n}</span>
+                            </div>
+                        `;
+                        row.appendChild(bDiv);
+                    });
+                }
+
+                gridBody.appendChild(row);
+            });
+
+            // Initial Scroll position to 8AM
+            setTimeout(() => {
+                const gridContainer = document.getElementById('grid-container');
+                gridContainer.scrollLeft = 8 * 64; 
+            }, 100);
+        });
+    </script>
+</body></html>

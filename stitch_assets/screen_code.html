@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Peak Hub - High-Performance OS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&amp;family=Geist:wght@100..900&amp;family=Inter:wght@300..900&amp;display=swap" rel="stylesheet"/>
+<!-- React and Framer Motion -->
+<script crossorigin="" src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-container-highest": "#353437",
+                "secondary": "#c0c1ff",
+                "on-tertiary-fixed": "#1a1b22",
+                "surface-container-low": "#1c1b1d",
+                "secondary-fixed-dim": "#c0c1ff",
+                "on-secondary": "#1000a9",
+                "inverse-surface": "#e5e1e4",
+                "secondary-fixed": "#e1e0ff",
+                "on-primary-container": "#d1ccff",
+                "primary-fixed": "#e3dfff",
+                "primary-container": "#534ab7",
+                "on-surface": "#e5e1e4",
+                "inverse-on-surface": "#313032",
+                "on-primary-fixed": "#140067",
+                "tertiary": "#c6c6cf",
+                "on-tertiary": "#2f3037",
+                "surface-container": "#201f22",
+                "tertiary-container": "#585961",
+                "surface-dim": "#131315",
+                "surface-tint": "#c5c0ff",
+                "on-error-container": "#ffdad6",
+                "background": "#131315",
+                "surface-container-lowest": "#0e0e10",
+                "secondary-container": "#3131c0",
+                "on-tertiary-fixed-variant": "#45464e",
+                "error-container": "#93000a",
+                "on-primary": "#28188c",
+                "outline-variant": "#474553",
+                "on-error": "#690005",
+                "on-primary-fixed-variant": "#3f35a3",
+                "outline": "#928f9e",
+                "on-secondary-fixed": "#07006c",
+                "on-secondary-fixed-variant": "#2f2ebe",
+                "surface-bright": "#39393b",
+                "inverse-primary": "#584fbc",
+                "on-secondary-container": "#b0b2ff",
+                "tertiary-fixed-dim": "#c6c6cf",
+                "surface-variant": "#353437",
+                "surface-container-high": "#2a2a2c",
+                "primary": "#c5c0ff",
+                "on-tertiary-container": "#d1d0d9",
+                "surface": "#131315",
+                "primary-fixed-dim": "#c5c0ff",
+                "on-surface-variant": "#c8c4d5",
+                "on-background": "#e5e1e4",
+                "error": "#ffb4ab",
+                "tertiary-fixed": "#e2e1eb"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-max": "1440px",
+                "margin-page": "48px",
+                "gutter": "24px",
+                "unit": "4px"
+        },
+        "fontFamily": {
+                "body-lg": [
+                        "Inter"
+                ],
+                "title-md": [
+                        "Inter"
+                ],
+                "label-mono": [
+                        "Geist"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "body-lg": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "letterSpacing": "0em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "title-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "label-mono": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.04em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.03em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: #131315;
+            color: #e5e1e4;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Grid & Blueprint Lines */
+        .tech-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 64px 64px;
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .grid-subdivision {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        .border-tech {
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .border-tech-x {
+            border-left: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-right: 0.5px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .border-tech-y {
+            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Coordinate Markers (Crosshairs) */
+        .crosshair {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+        }
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .crosshair::before { top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%); }
+        .crosshair::after { left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%); }
+
+        /* Precision Buttons */
+        .btn-precision {
+            background: transparent;
+            border: 0.5px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            border-radius: 0.25rem;
+        }
+        
+        .btn-precision::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.05);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-precision:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .btn-precision:hover::before {
+            transform: scaleX(1);
+        }
+
+        .btn-precision-primary {
+            background: #e5e1e4;
+            color: #131315;
+            border: 0.5px solid #e5e1e4;
+            transition: all 0.2s ease;
+            border-radius: 0.25rem;
+        }
+        
+        .btn-precision-primary:hover {
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Ambient Subdued Orb */
+        .ambient-texture {
+            position: absolute;
+            width: 80vw;
+            height: 80vh;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(19, 19, 21, 0) 60%);
+            filter: blur(80px);
+            animation: breathe-slow 15s ease-in-out infinite alternate;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes breathe-slow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+            100% { transform: scale(1.1) translate(10px, -10px); opacity: 0.8; }
+        }
+
+        /* Schematic Lines */
+        .schematic-line-h {
+            height: 0.5px;
+            background: rgba(255, 255, 255, 0.15);
+            width: 100%;
+        }
+        .schematic-line-v {
+            width: 0.5px;
+            background: rgba(255, 255, 255, 0.15);
+            height: 100%;
+        }
+        
+        /* Monospace accents */
+        .mono-accent {
+            font-family: 'Geist', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Mockup Base Styles */
+        .mockup-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Geist', monospace;
+        }
+        
+        .mockup-crosshair {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .mc-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+        .mc-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+        .mc-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+        .mc-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative border-tech-x border-tech-y mx-auto max-w-container-max">
+<div class="tech-grid grid-subdivision"></div>
+<!-- Left/Right HUD Margins (Fixed) -->
+<div class="fixed left-4 top-1/2 -translate-y-1/2 flex flex-col gap-32 z-50 pointer-events-none hidden xl:flex">
+<div class="mono-accent rotate-[-90deg] origin-left">SYS.VER.1.0.4</div>
+<div class="w-px h-32 bg-white/20 mx-auto"></div>
+<div class="mono-accent rotate-[-90deg] origin-left">STATUS: OPTIMAL</div>
+</div>
+<div class="fixed right-4 top-1/2 -translate-y-1/2 flex flex-col gap-32 z-50 pointer-events-none hidden xl:flex items-center">
+<div class="mono-accent rotate-90 origin-right whitespace-nowrap">COORD: 45.29 N, 12.04 E</div>
+<div class="w-px h-32 bg-white/20 mx-auto"></div>
+<div class="mono-accent rotate-90 origin-right">LATENCY: 12ms</div>
+</div>
+<!-- TopNavBar -->
+<header class="w-full border-b border-white/10 bg-background/80 backdrop-blur-md z-40 sticky top-0">
+<div class="flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-4">
+<div class="w-3 h-3 bg-white rounded-sm"></div>
+<div class="font-headline-lg text-[20px] font-bold tracking-tight text-on-surface">Peak Hub</div>
+<span class="mono-accent ml-4 hidden md:inline-block px-2 py-0.5 border border-white/20 rounded">OS INIT</span>
+</div>
+<nav class="hidden md:flex gap-12 items-center font-label-mono text-label-mono text-on-surface-variant">
+<a class="hover:text-white transition-colors" href="#">[01] FEATURES</a>
+<a class="hover:text-white transition-colors" href="#">[02] WORKSPACE</a>
+<a class="hover:text-white transition-colors" href="#">[03] PRICING</a>
+</nav>
+<div class="flex gap-4 items-center">
+<button class="btn-precision px-6 py-2 font-label-mono text-label-mono text-on-surface">LOGIN</button>
+<button class="btn-precision-primary px-6 py-2 font-label-mono text-label-mono text-background font-bold">GET STARTED FREE</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-start relative">
+<div class="ambient-texture top-0 left-1/4"></div>
+<!-- Hero Section: Asymmetrical Grid -->
+<section class="w-full grid grid-cols-1 md:grid-cols-12 min-h-[85vh] border-b border-white/10 relative">
+<!-- Crosshairs -->
+<div class="crosshair top-0 left-0"></div>
+<div class="crosshair top-0 right-0"></div>
+<div class="crosshair bottom-0 left-0"></div>
+<div class="crosshair bottom-0 right-0"></div>
+<!-- Left Column: Copy -->
+<div class="md:col-span-7 flex flex-col justify-center px-8 md:px-16 py-24 md:py-0 border-r border-white/10 relative">
+<div class="mb-12">
+<div class="mono-accent mb-6 flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-white animate-pulse rounded-full"></span>
+                    SYSTEM ONLINE / ALL MODULES ACTIVE
+                </div>
+<h1 class="font-headline-xl text-on-surface mb-8">
+                    Your entire work life. One place.
+</h1>
+<p class="font-body-lg text-on-surface-variant max-w-xl mb-12">
+                    Tasks, habits, notes, time-blocking, and team collaboration — all connected. Built for people who take their work seriously.
+                </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="btn-precision-primary px-8 py-4 font-label-mono text-label-mono flex items-center justify-center gap-3">
+                        GET STARTED FREE
+                        <span class="material-symbols-outlined text-[16px]">terminal</span>
+</button>
+<button class="btn-precision px-8 py-4 font-label-mono text-label-mono flex items-center justify-center gap-3">
+                        SEE HOW IT WORKS
+                        <span class="material-symbols-outlined text-[16px]">play_circle</span>
+</button>
+</div>
+</div>
+<!-- Technical Metadata Footer -->
+<div class="absolute bottom-8 left-8 right-8 flex justify-between border-t border-white/10 pt-4 hidden md:flex">
+<div class="mono-accent">RUNTIME: 99.99% UPTIME</div>
+<div class="mono-accent">ENCRYPTION: AES-256</div>
+<div class="mono-accent">LATENCY: &lt;10ms</div>
+</div>
+</div>
+<!-- Right Column: Abstract Structural Preview -->
+<div class="md:col-span-5 relative bg-white/[0.02] overflow-hidden flex items-center justify-center p-8">
+<div class="tech-grid grid-subdivision opacity-50"></div>
+<!-- Abstract UI Wireframe -->
+<div class="w-full max-w-sm aspect-[3/4] border-tech bg-background/50 backdrop-blur-sm p-6 flex flex-col gap-6 relative z-10 rounded-lg">
+<!-- Wireframe Header -->
+<div class="flex justify-between items-center border-b border-white/10 pb-4">
+<div class="flex gap-2">
+<div class="w-2 h-2 border border-white/50 rounded-sm"></div>
+<div class="w-2 h-2 border border-white/50 rounded-sm"></div>
+</div>
+<div class="mono-accent">WORKSPACE_01</div>
+</div>
+<!-- Wireframe Body -->
+<div class="flex-1 flex gap-4">
+<!-- Sidebar -->
+<div class="w-16 border-r border-white/10 flex flex-col gap-4 pr-4">
+<div class="w-full h-8 border border-white/10 rounded"></div>
+<div class="w-full h-8 border border-white/10 bg-white/5 rounded"></div>
+<div class="w-full h-8 border border-white/10 rounded"></div>
+</div>
+<!-- Main Area -->
+<div class="flex-1 flex flex-col gap-4">
+<div class="h-24 border border-white/10 relative overflow-hidden rounded">
+<div class="absolute top-2 left-2 mono-accent text-[8px]">FOCUS_MODULE</div>
+<div class="w-12 h-12 border border-white/20 rounded-full mx-auto mt-6"></div>
+</div>
+<div class="flex-1 border border-white/10 relative p-2 flex flex-col gap-2 rounded">
+<div class="absolute top-2 right-2 mono-accent text-[8px]">NEXUS_SYNC</div>
+<div class="w-3/4 h-2 bg-white/10 mt-4 rounded"></div>
+<div class="w-full h-2 bg-white/5 rounded"></div>
+<div class="w-5/6 h-2 bg-white/5 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Architectural Features Schematic -->
+<section class="w-full border-b border-white/10 py-24 px-8 md:px-16 relative">
+<div class="crosshair top-0 left-1/2"></div>
+<div class="mb-16">
+<div class="mono-accent mb-4">MODULE_SPECS // 01</div>
+<h2 class="font-headline-lg text-on-surface">Everything you need to do your best work.</h2>
+<p class="font-body-sm text-on-surface-variant max-w-md mt-4">Six deeply integrated modules that work together so you never have to switch apps again.</p>
+</div>
+<!-- Schematic Grid Layout -->
+<div class="relative w-full max-w-6xl mx-auto">
+<!-- Connecting Lines (Background) -->
+<div class="absolute top-1/2 left-0 w-full h-[0.5px] bg-white/10 -z-10 hidden lg:block"></div>
+<div class="absolute top-0 left-1/3 w-[0.5px] h-full bg-white/10 -z-10 hidden lg:block"></div>
+<div class="absolute top-0 right-1/3 w-[0.5px] h-full bg-white/10 -z-10 hidden lg:block"></div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-0 border-tech rounded-lg overflow-hidden">
+<!-- Focus Chamber -->
+<div class="p-8 border-b lg:border-b-0 lg:border-r border-white/10 relative group bg-background hover:bg-white/[0.02] transition-colors">
+<div class="absolute top-4 right-4 mono-accent">T-01</div>
+<span class="material-symbols-outlined text-[24px] text-white/50 mb-8" data-icon="timer">timer</span>
+<h3 class="font-title-md text-on-surface mb-3">Focus Mode</h3>
+<p class="font-body-sm text-on-surface-variant mb-6">A distraction-free timer that locks you into one task at a time. No notifications. Just work.</p>
+<div class="w-full h-[1px] bg-white/10 mb-4"></div>
+<div class="mono-accent">SHORTCUT: ENTER FOCUS</div>
+</div>
+<!-- Mental Inbox -->
+<div class="p-8 border-b lg:border-b-0 lg:border-r border-white/10 relative group bg-background hover:bg-white/[0.02] transition-colors">
+<div class="absolute top-4 right-4 mono-accent">I-02</div>
+<span class="material-symbols-outlined text-[24px] text-white/50 mb-8" data-icon="inbox">inbox</span>
+<h3 class="font-title-md text-on-surface mb-3">Tasks &amp; Spaces</h3>
+<p class="font-body-sm text-on-surface-variant mb-6">Capture tasks instantly, organize them into Spaces, and attach files, links, and notes right inside each task.</p>
+<div class="w-full h-[1px] bg-white/10 mb-4 flex justify-between items-center">
+</div>
+<div class="mono-accent">DRAG + DROP READY</div>
+</div>
+<!-- Nexus Notes -->
+<div class="p-8 relative group bg-background hover:bg-white/[0.02] transition-colors">
+<div class="absolute top-4 right-4 mono-accent">N-03</div>
+<span class="material-symbols-outlined text-[24px] text-white/50 mb-8" data-icon="edit_document">edit_document</span>
+<h3 class="font-title-md text-on-surface mb-3">Nexus Notes</h3>
+<p class="font-body-sm text-on-surface-variant mb-6">A lightning-fast markdown knowledge base with split-screen, slash commands, templates, and full version history.</p>
+<div class="w-full h-[1px] bg-white/10 mb-4"></div>
+<div class="mono-accent">FORMAT: MARKDOWN</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full border-b border-white/10 py-24 px-8 md:px-16 relative overflow-hidden">
+<div class="tech-grid grid-subdivision opacity-20"></div>
+<div class="crosshair top-0 left-1/4"></div>
+<div class="mb-24">
+<div class="mono-accent mb-4">FEATURE_DEEP_DIVE // 02</div>
+<h2 class="font-headline-lg text-on-surface">Every feature. Fully explained.</h2>
+<p class="font-body-sm text-on-surface-variant max-w-md mt-4">Six modules built to work together. Here's exactly what each one does.</p>
+</div>
+<div class="flex flex-col gap-32">
+<!-- 1. TASKS & SPACES (Mockup LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1 border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 flex items-center justify-center overflow-hidden" id="root-tasks-mockup">
+<!-- React Mount Point -->
+</div>
+<div class="order-1 md:order-2">
+<div class="mono-accent mb-4">I-01 // TASKS &amp; SPACES</div>
+<h3 class="font-headline-lg text-on-surface mb-6">Capture instantly. Execute deeply.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>Capture tasks instantly, organize them into Spaces, and attach files, links, and notes right inside each task.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Quick-capture global shortcut</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Nested sub-tasks and dependencies</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"3 seconds from scattered thought to focused execution."</div>
+</div>
+</div>
+<!-- 2. FOCUS MODE (Text LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<div class="mono-accent mb-4">T-02 // FOCUS MODE</div>
+<h3 class="font-headline-lg text-on-surface mb-6">One task. One timer. Zero distractions.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>A distraction-free timer that locks you into one task at a time. No notifications. Just work.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Full-screen immersion mode</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Automatic notification blocking</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"The average knowledge worker switches context every 3 minutes. Focus Mode fixes that."</div>
+</div>
+<div class="border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 flex items-center justify-center overflow-hidden" id="root-focus-mockup">
+<!-- React Mount Point -->
+</div>
+</div>
+<!-- 3. NEXUS NOTES (Mockup LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1 border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 overflow-hidden" id="root-nexus-mockup">
+<!-- React Mount Point -->
+</div>
+<div class="order-1 md:order-2">
+<div class="mono-accent mb-4">N-03 // NEXUS NOTES</div>
+<h3 class="font-headline-lg text-on-surface mb-6">A second brain that thinks at your speed.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>A lightning-fast markdown knowledge base with split-screen, slash commands, and full version history.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Bi-directional linking</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Instant slash-command menu</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"Auto-saves every keystroke. You have never lost a word."</div>
+</div>
+</div>
+<!-- 4. HABITS (Text LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<div class="mono-accent mb-4">H-04 // HABITS</div>
+<h3 class="font-headline-lg text-on-surface mb-6">Don't break the chain. Track habits right where you work.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>Build consistency with integrated habit tracking that lives alongside your daily tasks.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Visual streak visualization</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Automated completion triggers</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"0ms save latency. Optimistic UI — every click is instant."</div>
+</div>
+<div class="border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 flex items-center justify-center overflow-hidden" id="root-habits-mockup">
+<!-- React Mount Point -->
+</div>
+</div>
+<!-- 5. TIMETABLE (Mockup LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="order-2 md:order-1 border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 overflow-hidden" id="root-timetable-mockup">
+<!-- React Mount Point -->
+</div>
+<div class="order-1 md:order-2">
+<div class="mono-accent mb-4">C-05 // TIMETABLE</div>
+<h3 class="font-headline-lg text-on-surface mb-6">Where your to-do list meets reality.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>Drag and drop tasks directly onto your calendar to ensure you actually have time to do them.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Two-way calendar sync</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Native undo/redo support</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"The only productivity app with native Ctrl+Z undo on a time-blocking grid."</div>
+</div>
+</div>
+<!-- 6. WORKSPACE (Text LEFT) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div>
+<div class="mono-accent mb-4">W-06 // WORKSPACE</div>
+<h3 class="font-headline-lg text-on-surface mb-6">Your team. Your projects. One place.</h3>
+<div class="font-body-lg text-on-surface-variant space-y-4 mb-8">
+<p>Collaborate in real-time with shared tasks, docs, and chat threads tied to specific projects.</p>
+<ul class="space-y-2">
+<li class="flex items-start gap-2"><span class="text-white">•</span> Real-time presence indicators</li>
+<li class="flex items-start gap-2"><span class="text-white">•</span> Granular permission controls</li>
+</ul>
+</div>
+<div class="border-l-2 border-white/20 pl-4 mono-accent text-white/60 italic">"Tasks assigned in Workspace appear in your personal list automatically."</div>
+</div>
+<div class="border-tech bg-white/[0.02] aspect-video rounded-lg relative p-8 flex items-center justify-center overflow-hidden" id="root-workspace-mockup">
+<!-- React Mount Point -->
+</div>
+</div>
+</div>
+<!-- Closing -->
+<div class="mt-32 pt-24 border-t border-white/10 text-center">
+<div class="mono-accent mb-6">ALL_MODULES // CONNECTED</div>
+<h3 class="font-headline-lg text-on-surface mb-6">Every feature talks to every other feature. That's the point.</h3>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">Peak Hub isn't a collection of tools; it's a single, unified operating system for your work. When you update a task in Workspace, it reflects in your Timetable. When you finish a Focus session, your progress is logged in Habits.</p>
+<button class="btn-precision-primary px-10 py-5 font-label-mono text-label-mono text-[14px] flex items-center gap-3 mx-auto">
+      GET STARTED FREE
+      <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Collaborative Workspace (Structured) -->
+<section class="w-full border-b border-white/10 py-24 px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-16 relative">
+<div class="flex flex-col justify-center">
+<div class="mono-accent mb-4">WORKSPACE // 02</div>
+<h2 class="font-headline-lg text-on-surface mb-6">From solo focus to team collaboration. Without switching apps.</h2>
+<p class="font-body-lg text-on-surface-variant mb-12">
+                    When your focus session ends, your team is right there. Real-time tasks, chat, shared docs, and file storage — all inside the same app you've been working in.
+                </p>
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4 border-l-2 border-white/20 pl-4">
+<div class="mono-accent mt-1 w-8">01</div>
+<div>
+<h4 class="font-title-md text-on-surface text-[14px]">See who's online</h4>
+<p class="font-body-sm text-on-surface-variant">Know when teammates are active and working on the same project in real time.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 border-l-2 border-white/20 pl-4">
+<div class="mono-accent mt-1 w-8">02</div>
+<div>
+<h4 class="font-title-md text-on-surface text-[14px]">Work in context</h4>
+<p class="font-body-sm text-on-surface-variant">Tasks, chat, docs, and files live together inside each project. No more digging through Slack threads for that one link.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 border-l-2 border-white/20 pl-4">
+<div class="mono-accent mt-1 w-8">03</div>
+<div>
+<h4 class="font-title-md text-on-surface text-[14px]">Granular RBAC</h4>
+<p class="font-body-sm text-on-surface-variant">Strict structural access control per project module.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative flex items-center justify-center">
+<!-- Structured Terminal/Chat UI -->
+<div class="w-full max-w-lg border-tech bg-background p-1 font-label-mono text-label-mono rounded-lg">
+<div class="border-b border-white/10 p-2 flex justify-between items-center bg-white/5 rounded-t-md">
+<span>WORKSPACE_SYNC_SESSION</span>
+<div class="flex gap-2">
+<div class="w-2 h-2 bg-white/30 rounded-full"></div>
+<div class="w-2 h-2 bg-white/80 rounded-full"></div>
+</div>
+</div>
+<div class="p-4 flex flex-col gap-4 h-[300px] bg-background rounded-b-md">
+<div class="flex flex-col gap-1">
+<div class="text-white/40">USER_JD [14:02:45]:</div>
+<div class="text-on-surface pl-4 border-l border-white/20">"Just finished the API work. Leaving notes in the doc."</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="text-white/40">USER_AK [14:04:12]:</div>
+<div class="text-on-surface pl-4 border-l border-white/20">"On it — I'll review and push to staging before EOD."</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="text-white/40">USER_JD [14:05:01]:</div>
+<div class="text-on-surface pl-4 border-l border-white/20">"Starting documentation now. Setting a focus timer."</div>
+</div>
+<div class="mt-auto flex items-center gap-2 border-t border-white/10 pt-4">
+<span class="text-white/40">&gt;</span>
+<span class="text-white animate-pulse">_</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA (Blueprint Style) -->
+<section class="w-full py-32 px-8 text-center relative flex flex-col items-center">
+<div class="tech-grid grid-subdivision opacity-30"></div>
+<div class="mono-accent mb-6 border border-white/20 px-4 py-1 inline-block rounded">READY_TO_START</div>
+<h2 class="font-headline-xl text-on-surface mb-12 max-w-3xl mx-auto">Stop juggling apps. Start doing your best work.</h2>
+<button class="btn-precision-primary px-10 py-5 font-label-mono text-label-mono text-[14px] flex items-center gap-3">
+                GET STARTED FREE
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- Footer (Technical specs style) -->
+<footer class="w-full border-t border-white/10 bg-background pt-16 pb-8 px-8 md:px-16 font-label-mono text-label-mono text-on-surface-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 bg-white rounded-sm"></div>
+<span class="font-bold text-on-surface text-[14px]">Peak Hub OS</span>
+</div>
+<p class="max-w-xs mb-8">One app for tasks, notes, habits, time-blocking, and team collaboration.</p>
+<div class="flex gap-4">
+<span class="border border-white/10 px-2 py-1 rounded">SYS.V.1.0</span>
+<span class="border border-white/10 px-2 py-1 rounded">STABLE</span>
+</div>
+</div>
+<div>
+<h4 class="text-white mb-4 border-b border-white/10 pb-2 inline-block">NAVIGATION</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="hover:text-white transition-colors" href="#">Features</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Workspace</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Pricing</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white mb-4 border-b border-white/10 pb-2 inline-block">RESOURCES</h4>
+<ul class="flex flex-col gap-2">
+<li><a class="hover:text-white transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div>© 2026 PEAK HUB. BUILT FOR FOCUS.</div>
+<div class="flex gap-6">
+<a class="hover:text-white" href="#">PRIVACY</a>
+<a class="hover:text-white" href="#">TERMS</a>
+</div>
+</div>
+</footer>
+<!-- React Components Implementation -->
+<script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const { motion, AnimatePresence } = window.Motion;
+    const primaryAccent = '#534AB7';
+
+    // Helper for crosshairs
+    const Crosshairs = () => (
+        <>
+            <div className="mockup-crosshair mc-tl"></div>
+            <div className="mockup-crosshair mc-tr"></div>
+            <div className="mockup-crosshair mc-bl"></div>
+            <div className="mockup-crosshair mc-br"></div>
+        </>
+    );
+
+    // MOCKUP 01: Tasks & Spaces
+    const TasksMockup = () => {
+        const [active, setActive] = useState(0);
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setActive(prev => (prev + 1) % 3);
+            }, 3000);
+            return () => clearInterval(interval);
+        }, []);
+
+        return (
+            <div className="mockup-container flex bg-[#131315]/50 border border-white/10 rounded overflow-hidden">
+                <Crosshairs />
+                {/* Sidebar */}
+                <div className="w-1/3 border-r border-white/10 p-4 hidden sm:flex flex-col gap-3">
+                    <div className="text-[10px] text-white/50 mb-2">SPACES</div>
+                    {[0, 1, 2].map(i => (
+                        <div key={i} className={`h-6 rounded border ${i === 0 ? 'border-[#534AB7] bg-[#534AB7]/20' : 'border-white/5'} px-2 flex items-center`}>
+                            <div className="w-2 h-2 rounded-full bg-white/20 mr-2"></div>
+                            <div className={`h-1.5 rounded w-12 ${i === 0 ? 'bg-white' : 'bg-white/20'}`}></div>
+                        </div>
+                    ))}
+                </div>
+                {/* Main */}
+                <div className="flex-1 p-4 flex flex-col relative overflow-hidden">
+                    <div className="text-[10px] text-white/50 mb-4 border-b border-white/10 pb-2">TODAY'S TASKS</div>
+                    <div className="flex flex-col gap-3 relative h-full">
+                        <AnimatePresence>
+                            {[0, 1, 2].map((i) => (
+                                <motion.div 
+                                    key={i}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ 
+                                        opacity: 1, 
+                                        y: i < active ? -20 : 0, 
+                                        scale: i === active ? 1.02 : 1,
+                                    }}
+                                    className={`p-3 border rounded flex items-center gap-3 transition-colors ${i === active ? 'border-[#534AB7] bg-[#534AB7]/10 z-10' : 'border-white/10 bg-white/[0.02]'}`}
+                                    style={{ 
+                                        display: i < active ? 'none' : 'flex' 
+                                    }}
+                                >
+                                    <motion.div 
+                                        className="w-4 h-4 rounded-full border border-white/30 flex items-center justify-center flex-shrink-0"
+                                        animate={i === active ? { scale: [1, 1.2, 1], borderColor: ['rgba(255,255,255,0.3)', primaryAccent, 'rgba(255,255,255,0.3)'] } : {}}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                    >
+                                        {i < active && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                                    </motion.div>
+                                    <div className="flex-1 relative">
+                                        <div className={`h-2 rounded w-3/4 ${i === active ? 'bg-white' : 'bg-white/40'}`}></div>
+                                        {i === active && (
+                                            <motion.div 
+                                                className="absolute top-1/2 left-0 h-px bg-[#534AB7]"
+                                                initial={{ width: 0 }}
+                                                animate={{ width: "75%" }}
+                                                transition={{ duration: 0.5, delay: 2 }}
+                                            />
+                                        )}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    </div>
+                </div>
+                <div className="absolute bottom-2 left-2 text-[8px] text-white/30">I-01 // TASKS_SPACES</div>
+            </div>
+        );
+    };
+
+    // MOCKUP 02: Focus Mode
+    const FocusMockup = () => {
+        const [time, setTime] = useState(24 * 60 + 37);
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+                setTime(prev => (prev > 0 ? prev - 1 : 24 * 60 + 37));
+            }, 1000);
+            return () => clearInterval(interval);
+        }, []);
+
+        const mins = Math.floor(time / 60).toString().padStart(2, '0');
+        const secs = (time % 60).toString().padStart(2, '0');
+        const progress = (time / (25 * 60)) * 100;
+        const circumference = 2 * Math.PI * 40; // r=40
+        const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+        return (
+            <div className="mockup-container flex items-center justify-center bg-[#131315]/80 border border-white/10 rounded relative">
+                <Crosshairs />
+                <motion.div 
+                    className="absolute w-32 h-32 rounded-full bg-[#534AB7]/10 blur-xl"
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="relative w-48 h-48 flex items-center justify-center">
+                    <svg className="w-full h-full -rotate-90 absolute inset-0" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" fill="transparent" stroke="rgba(255,255,255,0.05)" strokeWidth="2" />
+                        <motion.circle 
+                            cx="50" cy="50" r="40" fill="transparent" 
+                            stroke={primaryAccent} strokeWidth="2"
+                            strokeDasharray={circumference}
+                            animate={{ strokeDashoffset }}
+                            transition={{ duration: 1, ease: "linear" }}
+                            strokeLinecap="round"
+                        />
+                    </svg>
+                    <div className="text-center z-10 font-mono">
+                        <div className="text-3xl text-white tracking-wider font-light">{mins}:{secs}</div>
+                        <div className="text-[10px] text-[#534AB7] mt-1 tracking-widest">DEEP WORK</div>
+                    </div>
+                </div>
+                <div className="absolute bottom-2 right-2 text-[8px] text-white/30">T-02 // FOCUS_TIMER</div>
+            </div>
+        );
+    };
+
+    // MOCKUP 03: Nexus Notes
+    const NexusMockup = () => {
+        const text = "The architecture scales horizontally.\nWe need to ensure zero-downtime deployments.\n";
+        const [typed, setTyped] = useState("");
+
+        useEffect(() => {
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i <= text.length) {
+                    setTyped(text.slice(0, i));
+                    i++;
+                } else {
+                    i = 0; // reset loop
+                    setTyped("");
+                }
+            }, 100);
+            return () => clearInterval(interval);
+        }, []);
+
+        return (
+            <div className="mockup-container flex bg-[#131315] border border-white/10 rounded overflow-hidden">
+                <Crosshairs />
+                {/* Pinned Note */}
+                <div className="w-1/3 border-r border-white/10 p-4 bg-white/[0.01] hidden sm:block">
+                    <div className="text-[8px] text-white/40 mb-3 flex items-center gap-1"><span className="material-symbols-outlined text-[10px]">push_pin</span> ARCHITECTURE.md</div>
+                    <div className="space-y-2">
+                        <div className="h-1.5 w-full bg-white/20 rounded"></div>
+                        <div className="h-1.5 w-4/5 bg-white/20 rounded"></div>
+                        <div className="h-1.5 w-5/6 bg-white/20 rounded"></div>
+                    </div>
+                </div>
+                {/* Editor */}
+                <div className="flex-1 p-4 relative flex flex-col">
+                    <div className="flex justify-between items-center mb-4 pb-2 border-b border-white/10">
+                        <div className="text-[10px] text-white">system_design.md</div>
+                        <motion.div 
+                            className="text-[8px] text-[#534AB7]"
+                            animate={{ opacity: [0.3, 1, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                        >Saving...</motion.div>
+                    </div>
+                    <div className="flex-1 text-[12px] text-white/80 whitespace-pre-wrap leading-relaxed">
+                        {typed}<span className="inline-block w-1.5 h-3 bg-white/50 animate-pulse ml-0.5 align-middle"></span>
+                    </div>
+                    
+                    {/* Slash Command Hint */}
+                    <motion.div 
+                        className="absolute bottom-6 left-6 right-6 border border-white/10 bg-background/90 backdrop-blur p-2 rounded flex items-center gap-2"
+                        animate={{ opacity: typed.length > 5 && typed.length < 15 ? 1 : 0, y: typed.length > 5 && typed.length < 15 ? 0 : 10 }}
+                    >
+                        <div className="px-1.5 py-0.5 bg-white/10 rounded text-[10px]">/</div>
+                        <div className="text-[10px] text-white/50">Type '/' for commands</div>
+                    </motion.div>
+                </div>
+                <div className="absolute bottom-2 left-2 text-[8px] text-white/30">N-03 // MARKDOWN_ENGINE</div>
+            </div>
+        );
+    };
+
+    // MOCKUP 04: Habits
+    const HabitsMockup = () => {
+        // Grid logic
+        const cols = 12;
+        const rows = 5;
+        
+        return (
+            <div className="mockup-container p-6 bg-[#131315] border border-white/10 rounded flex flex-col justify-center relative">
+                <Crosshairs />
+                <div className="text-[10px] text-white/50 mb-4 flex justify-between">
+                    <span>CONSISTENCY_GRID</span>
+                    <span className="text-[#534AB7]">84% COMPLETION</span>
+                </div>
+                
+                <div className="grid grid-cols-12 gap-1 mb-6 relative">
+                    {/* Perfect streak shimmer */}
+                    <motion.div 
+                        className="absolute top-[20%] left-0 w-full h-[20%] bg-gradient-to-r from-transparent via-[#534AB7]/30 to-transparent z-10 pointer-events-none"
+                        animate={{ x: ['-100%', '200%'] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    />
+                    
+                    {Array.from({ length: rows * cols }).map((_, i) => {
+                        const isToday = i === rows * cols - 1;
+                        const isActive = Math.random() > 0.3 || (i >= cols && i < cols*2); // row 2 is perfect streak
+                        return (
+                            <motion.div 
+                                key={i}
+                                className={`aspect-square rounded-sm ${isActive ? 'bg-[#534AB7]/80' : 'bg-white/5'}`}
+                                animate={isToday ? { scale: [1, 1.1, 1], backgroundColor: ['rgba(255,255,255,0.05)', 'rgba(83,74,183,0.5)', 'rgba(255,255,255,0.05)'] } : {}}
+                                transition={isToday ? { duration: 1.5, repeat: Infinity } : {}}
+                            />
+                        );
+                    })}
+                </div>
+                
+                <div className="w-full h-1 bg-white/10 rounded overflow-hidden">
+                    <motion.div 
+                        className="h-full bg-[#534AB7]"
+                        initial={{ width: 0 }}
+                        animate={{ width: '84%' }}
+                        transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
+                    />
+                </div>
+                <div className="absolute bottom-2 right-2 text-[8px] text-white/30">H-04 // CONSISTENCY_GRID</div>
+            </div>
+        );
+    };
+
+    // MOCKUP 05: Timetable
+    const TimetableMockup = () => {
+        return (
+            <div className="mockup-container p-4 bg-[#131315] border border-white/10 rounded flex gap-4 relative">
+                <Crosshairs />
+                {/* Tray */}
+                <div className="w-1/4 border-r border-white/10 pr-4 flex flex-col gap-2">
+                    <div className="text-[8px] text-white/50 mb-2">BACKLOG</div>
+                    <div className="h-6 rounded border border-white/10 bg-white/5"></div>
+                    <div className="h-6 rounded border border-white/10 bg-white/5"></div>
+                    <motion.div 
+                        className="h-6 rounded border border-[#534AB7] bg-[#534AB7]/20 relative z-20"
+                        animate={{ 
+                            x: [0, 80, 80, 0], 
+                            y: [0, 40, 40, 0],
+                            opacity: [1, 1, 0, 0]
+                        }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                </div>
+                {/* Grid */}
+                <div className="flex-1 grid grid-cols-4 gap-1 relative">
+                    <div className="col-span-4 text-[8px] text-white/50 mb-2 grid grid-cols-4 gap-1">
+                        <span>MON</span><span>TUE</span><span>WED</span><span>THU</span>
+                    </div>
+                    {/* Grid Cells */}
+                    {Array.from({ length: 4 * 4 }).map((_, i) => (
+                        <div key={i} className="h-8 border border-white/5 rounded-sm relative bg-white/[0.01]">
+                            {/* Static blocks */}
+                            {i === 2 && <div className="absolute inset-0 bg-white/10 m-0.5 rounded-sm"></div>}
+                            {i === 5 && <div className="absolute inset-0 bg-white/10 m-0.5 rounded-sm"></div>}
+                            
+                            {/* Drop target highlight & block appearance */}
+                            {i === 6 && (
+                                <>
+                                    <motion.div 
+                                        className="absolute inset-0 border border-[#534AB7] rounded-sm"
+                                        animate={{ opacity: [0, 1, 1, 0] }}
+                                        transition={{ duration: 4, repeat: Infinity, times: [0, 0.4, 0.6, 1] }}
+                                    />
+                                    <motion.div 
+                                        className="absolute inset-0 bg-[#534AB7]/40 m-0.5 rounded-sm"
+                                        animate={{ opacity: [0, 0, 1, 0] }}
+                                        transition={{ duration: 4, repeat: Infinity, times: [0, 0.5, 0.6, 1] }}
+                                    />
+                                </>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <div className="absolute bottom-2 left-2 text-[8px] text-white/30">C-05 // TIME_BLOCKING</div>
+            </div>
+        );
+    };
+
+    // MOCKUP 06: Workspace
+    const WorkspaceMockup = () => {
+        return (
+            <div className="mockup-container bg-[#131315] border border-white/10 rounded flex flex-col relative overflow-hidden">
+                <Crosshairs />
+                {/* Topbar */}
+                <div className="h-10 border-b border-white/10 flex items-center justify-between px-4 bg-white/[0.02]">
+                    <div className="text-[10px] text-white">PROJECT_ALPHA</div>
+                    <div className="flex -space-x-2">
+                        {[0, 1, 2].map(i => (
+                            <div key={i} className="w-5 h-5 rounded-full border border-background bg-white/10 relative">
+                                {i < 2 && (
+                                    <motion.div 
+                                        className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full border border-background"
+                                        animate={{ scale: [1, 1.2, 1] }}
+                                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+                                    />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                {/* Content */}
+                <div className="flex-1 p-4 grid grid-cols-2 gap-4">
+                    {/* Columns */}
+                    <div className="border border-white/5 rounded bg-white/[0.01] p-2 flex flex-col gap-2">
+                        <div className="text-[8px] text-white/40 mb-2">IN PROGRESS</div>
+                        <div className="h-8 rounded border border-white/10 bg-white/5"></div>
+                        
+                        <motion.div 
+                            className="h-8 rounded border border-[#534AB7] bg-[#534AB7]/20 z-10"
+                            animate={{ x: [0, 120, 120, 0], opacity: [1, 1, 0, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                    </div>
+                    <div className="border border-white/5 rounded bg-white/[0.01] p-2 flex flex-col gap-2 relative">
+                        <div className="text-[8px] text-white/40 mb-2">COMPLETED</div>
+                        <div className="h-8 rounded border border-white/10 bg-white/5 opacity-50"></div>
+                        <motion.div 
+                            className="absolute top-12 left-2 right-2 h-8 rounded border border-green-500/50 bg-green-500/10"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 0, 1, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, times: [0, 0.5, 0.6, 1] }}
+                        />
+                    </div>
+                </div>
+                <div className="absolute bottom-2 right-2 text-[8px] text-white/30">W-06 // TEAM_SYNC</div>
+            </div>
+        );
+    };
+
+    // Mount all mockups
+    const rootTasks = ReactDOM.createRoot(document.getElementById('root-tasks-mockup'));
+    rootTasks.render(<TasksMockup />);
+    
+    const rootFocus = ReactDOM.createRoot(document.getElementById('root-focus-mockup'));
+    rootFocus.render(<FocusMockup />);
+    
+    const rootNexus = ReactDOM.createRoot(document.getElementById('root-nexus-mockup'));
+    rootNexus.render(<NexusMockup />);
+    
+    const rootHabits = ReactDOM.createRoot(document.getElementById('root-habits-mockup'));
+    rootHabits.render(<HabitsMockup />);
+    
+    const rootTimetable = ReactDOM.createRoot(document.getElementById('root-timetable-mockup'));
+    rootTimetable.render(<TimetableMockup />);
+    
+    const rootWorkspace = ReactDOM.createRoot(document.getElementById('root-workspace-mockup'));
+    rootWorkspace.render(<WorkspaceMockup />);
+</script>
+</body></html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workspace Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#928f9e",
+                      "tertiary-fixed": "#a0f3d4",
+                      "secondary-fixed": "#d4e3ff",
+                      "error": "#ffb4ab",
+                      "secondary": "#a4c9ff",
+                      "inverse-primary": "#584fbc",
+                      "tertiary-container": "#00664f",
+                      "on-surface-variant": "#c8c4d5",
+                      "inverse-on-surface": "#313030",
+                      "on-secondary-fixed": "#001c39",
+                      "on-secondary-fixed-variant": "#004883",
+                      "background": "#131313",
+                      "surface-container-low": "#1c1b1b",
+                      "secondary-fixed-dim": "#a4c9ff",
+                      "inverse-surface": "#e5e2e1",
+                      "primary-container": "#534ab7",
+                      "outline-variant": "#474553",
+                      "on-secondary-container": "#a3c8ff",
+                      "surface": "#131313",
+                      "primary-fixed": "#e3dfff",
+                      "on-tertiary-fixed-variant": "#00513e",
+                      "tertiary-fixed-dim": "#84d6b9",
+                      "surface-bright": "#3a3939",
+                      "surface-container-highest": "#353534",
+                      "secondary-container": "#005398",
+                      "on-primary-fixed": "#140067",
+                      "on-tertiary": "#00382a",
+                      "primary": "#c5c0ff",
+                      "on-primary-container": "#d1ccff",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-background": "#e5e2e1",
+                      "on-tertiary-fixed": "#002117",
+                      "tertiary": "#84d6b9",
+                      "primary-fixed-dim": "#c5c0ff",
+                      "on-primary-fixed-variant": "#3f35a3",
+                      "on-error-container": "#ffdad6",
+                      "surface-container": "#201f1f",
+                      "on-secondary": "#00315d",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-tint": "#c5c0ff",
+                      "on-tertiary-container": "#8ee1c3",
+                      "error-container": "#93000a",
+                      "on-primary": "#28188c",
+                      "on-error": "#690005",
+                      "surface-dim": "#131313",
+                      "on-surface": "#e5e2e1",
+                      "surface-variant": "#353534"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-xs": "8px",
+                      "margin-md": "24px",
+                      "gutter": "1px",
+                      "unit": "4px",
+                      "margin-lg": "48px",
+                      "margin-sm": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-mono": [
+                              "jetbrainsMono"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "10px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-main": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: #0f0f0f; }
+        .border-technical { border-color: #1e1e1e; }
+      </style>
+</head>
+<body class="font-body-main text-body-main text-on-surface flex h-screen overflow-hidden">
+<!-- SideNavBar (from JSON & modified per prompt) -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary w-[200px] h-full border-r border-outline-variant fixed left-0 top-0 flex flex-col z-10 font-body-main text-body-main hidden md:flex">
+<!-- Header -->
+<div class="p-margin-md border-b border-outline-variant flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-headline-md text-headline-md font-bold shrink-0 border border-outline-variant">
+                P
+            </div>
+<div class="overflow-hidden">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary truncate">PRODUCTIVITY</div>
+<div class="font-label-caps text-label-caps text-outline truncate mt-unit">Precision Workspace</div>
+</div>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex-1 overflow-y-auto py-margin-xs">
+<!-- Active state would go here if one matched, but this is an empty state / home, matching Overview -->
+<a class="flex items-center gap-3 px-margin-md py-2 bg-surface-container-low dark:bg-surface-container-low text-on-surface dark:text-on-surface border-l-[1.5px] border-primary hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>Timetable</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span>Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span>Lists</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">repeat</span>
+<span>Habits</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">target</span>
+<span>Goals</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span>Focus</span>
+</a>
+<!-- Prompt requested custom items -->
+<div class="mt-margin-md mb-margin-xs px-margin-md font-label-caps text-label-caps text-outline uppercase">Projects</div>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<div class="w-2 h-2 bg-[#8b5cf6]"></div>
+<span>Project Alpha</span>
+</a>
+<a class="flex items-center gap-3 px-margin-md py-2 text-outline dark:text-outline hover:bg-surface-container dark:hover:bg-surface-container transition-colors duration-150 ease-linear border-l-[1.5px] border-transparent" href="#">
+<div class="w-2 h-2 bg-[#3b82f6]"></div>
+<span>Marketing</span>
+</a>
+</div>
+<!-- CTA & Footer -->
+<div class="p-margin-md border-t border-outline-variant">
+<button class="w-full mb-margin-md py-2 flex items-center justify-center gap-2 bg-[#1E1E1E] border border-primary text-on-surface font-label-caps text-label-caps uppercase hover:bg-surface-container-low transition-colors duration-150 rounded">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                New Project
+            </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 py-1 text-outline dark:text-outline hover:bg-surface-container transition-colors duration-150 ease-linear" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 py-1 text-outline dark:text-outline hover:bg-surface-container transition-colors duration-150 ease-linear" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[0px] md:ml-[200px] flex flex-col items-center justify-center relative">
+<!-- Minimal Top Bar just to hold responsive menu icon if needed, though hidden on md -->
+<div class="md:hidden w-full h-[48px] border-b border-technical flex items-center px-margin-md fixed top-0 bg-[#0f0f0f] z-10">
+<button class="text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="ml-4 font-headline-md text-headline-md font-bold">PRODUCTIVITY</div>
+</div>
+<!-- Empty State Content -->
+<div class="flex flex-col items-center text-center max-w-[400px] px-margin-md mt-[48px] md:mt-0">
+<!-- Large Grid Icon -->
+<div class="w-[80px] h-[80px] border border-technical bg-[#161616] flex items-center justify-center mb-margin-md">
+<span class="material-symbols-outlined" style="font-size: 48px; color: #2a2a2a; font-variation-settings: 'wght' 200;">grid_view</span>
+</div>
+<!-- Titles -->
+<h1 class="font-headline-md text-headline-md text-[#e0e0e0] mb-2 font-medium tracking-tight">Your workspace is empty</h1>
+<p class="font-body-main text-body-main text-[#555555] mb-margin-lg leading-relaxed">
+                Create a project to start collaborating with your team in real time.
+            </p>
+<!-- Action Button -->
+<button class="bg-[#534AB7] text-white px-6 py-3 rounded-[6px] font-label-caps text-label-caps uppercase hover:opacity-90 transition-opacity flex items-center gap-2 border border-transparent hover:border-white/20">
+<span class="material-symbols-outlined text-[14px]">add</span>
+                Create your first project
+            </button>
+<!-- Decorative Technical Elements -->
+<div class="absolute bottom-margin-lg left-margin-lg text-[#555] font-body-mono text-body-mono opacity-50 hidden lg:block">
+                SYS.RDY // 0.00
+            </div>
+<div class="absolute bottom-margin-lg right-margin-lg text-[#555] font-body-mono text-body-mono opacity-50 hidden lg:block">
+                GRID_REF: ALPHA_01
+            </div>
+<!-- Grid Lines Background Decoration -->
+<div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: linear-gradient(#1e1e1e 1px, transparent 1px), linear-gradient(90deg, #1e1e1e 1px, transparent 1px); background-size: 48px 48px; z-index: -1;"></div>
+</div>
+</main>
+</body></html>
