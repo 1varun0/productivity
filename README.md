@@ -1,7 +1,5 @@
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Vibecoded Banner" width="100%" height="250" style="object-fit: cover; border-radius: 12px;"/>
-
-  <h1>Vibecoded Productivity</h1>
+  <h1>Productivity</h1>
   <p>A next-generation, glassmorphic productivity suite blending collaborative workspaces, gamified habit tracking, and immersive deep-work chambers.</p>
 
   [![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -14,7 +12,7 @@
 <br />
 
 ## 🪐 Philosophy
-Vibecoded isn't just another task manager. It is a highly opinionated, visually immersive workspace designed to induce flow states. By combining brutalist utility with a premium, cinematic "cyberpunk-glassmorphism" aesthetic, it transforms mundane task management into a high-fidelity experience.
+Productivity isn't just another task manager. It is a highly opinionated, visually immersive workspace designed to induce flow states. By combining brutalist utility with a premium, cinematic "cyberpunk-glassmorphism" aesthetic, it transforms mundane task management into a high-fidelity experience.
 
 ---
 
@@ -69,8 +67,8 @@ Vibecoded isn't just another task manager. It is a highly opinionated, visually 
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/yourusername/vibecoded-productivity.git
-cd vibecoded-productivity
+git clone https://github.com/1varun0/productivity.git
+cd productivity
 npm install
 ```
 
@@ -104,5 +102,5 @@ This project adheres to strict enterprise-grade security protocols:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 <div align="center">
-  <p>Built with precision by Vibecoded.</p>
+  <p>Built with precision.</p>
 </div>
