@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, MotionValue, transform, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue, transform, useMotionValueEvent, useSpring } from 'framer-motion';
 import { 
   TasksMockup, 
   FocusMockup, 
@@ -143,6 +143,13 @@ export const FeatureDeepDiveSection: React.FC = () => {
     offset: ["start start", "end end"]
   });
 
+  // Smooth out high-frequency touchpad scroll events
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <section ref={containerRef} className="w-full relative h-[700vh] border-y border-white/10 bg-background">
       {/* Sticky container that stays pinned for the 700vh duration */}
@@ -153,12 +160,12 @@ export const FeatureDeepDiveSection: React.FC = () => {
         <div className="crosshair top-0 left-1/4 absolute pointer-events-none z-0"></div>
 
         {/* Introduction title card */}
-        <SectionHeader progress={scrollYProgress} />
+        <SectionHeader progress={smoothProgress} />
 
         {/* Feature stack (all position: absolute on top of each other) */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           {/* 1. TASKS & SPACES (Mockup LEFT) */}
-          <FeatureRow progress={scrollYProgress} index={0} mockupSide="left">
+          <FeatureRow progress={smoothProgress} index={0} mockupSide="left">
             <>
               <div className="mono-accent mb-4">I-01 // TASKS &amp; SPACES</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">Capture instantly.<br/>Execute deeply.</h3>
@@ -180,7 +187,7 @@ export const FeatureDeepDiveSection: React.FC = () => {
           </FeatureRow>
 
           {/* 2. FOCUS MODE (Mockup RIGHT) */}
-          <FeatureRow progress={scrollYProgress} index={1} mockupSide="right">
+          <FeatureRow progress={smoothProgress} index={1} mockupSide="right">
             <>
               <div className="mono-accent mb-4">T-02 // FOCUS MODE</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">One task.<br/>One timer.<br/>Zero distractions.</h3>
@@ -200,7 +207,7 @@ export const FeatureDeepDiveSection: React.FC = () => {
           </FeatureRow>
 
           {/* 3. NEXUS NOTES (Mockup LEFT) */}
-          <FeatureRow progress={scrollYProgress} index={2} mockupSide="left">
+          <FeatureRow progress={smoothProgress} index={2} mockupSide="left">
             <>
               <div className="mono-accent mb-4">N-03 // NEXUS NOTES</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">A second brain that<br/>thinks at your speed.</h3>
@@ -223,7 +230,7 @@ export const FeatureDeepDiveSection: React.FC = () => {
           </FeatureRow>
 
           {/* 4. HABITS (Mockup RIGHT) */}
-          <FeatureRow progress={scrollYProgress} index={3} mockupSide="right">
+          <FeatureRow progress={smoothProgress} index={3} mockupSide="right">
             <>
               <div className="mono-accent mb-4">H-04 // HABITS</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">Don't break the chain.<br/>Track habits where you work.</h3>
@@ -247,7 +254,7 @@ export const FeatureDeepDiveSection: React.FC = () => {
           </FeatureRow>
 
           {/* 5. TIMETABLE (Mockup LEFT) */}
-          <FeatureRow progress={scrollYProgress} index={4} mockupSide="left">
+          <FeatureRow progress={smoothProgress} index={4} mockupSide="left">
             <>
               <div className="mono-accent mb-4">C-05 // TIMETABLE</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">Where your to-do list<br/>meets reality.</h3>
@@ -272,7 +279,7 @@ export const FeatureDeepDiveSection: React.FC = () => {
           </FeatureRow>
 
           {/* 6. WORKSPACE (Mockup RIGHT) */}
-          <FeatureRow progress={scrollYProgress} index={5} mockupSide="right">
+          <FeatureRow progress={smoothProgress} index={5} mockupSide="right">
             <>
               <div className="mono-accent mb-4">W-06 // WORKSPACE</div>
               <h3 className="font-headline-lg text-on-surface mb-6 text-glow">Your team.<br/>Your projects.<br/>One place.</h3>
