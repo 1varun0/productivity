@@ -133,7 +133,22 @@ export function SpacesList() {
     reorderLists(localListsRef.current.map(l => l.id)); // Sync to database when drop happens
   };
 
-  if (isListsLoading) return null;
+  if (isListsLoading) {
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <h2 className="text-[11px] font-semibold tracking-[0.2em] text-muted-foreground/40 uppercase">
+            Spaces
+          </h2>
+        </div>
+        <div className="space-y-1">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-[46px] w-full bg-card/40 rounded-xl animate-pulse shadow-inset-edge border border-transparent" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
