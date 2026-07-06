@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Vibecoded Productivity</h1>
+  <h1>Productivity</h1>
   <p>Your entire work life. One place. Tasks, habits, notes, time-blocking, and team collaboration — all connected. Built for people who take their work seriously.</p>
 
   [![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
