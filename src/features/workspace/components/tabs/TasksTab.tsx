@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { Plus, Check, Calendar, UserX, Paperclip, Eye, Download, Trash2, Upload, FileText, Image as ImageIcon, Archive, File as FileIcon, X, Loader2 } from 'lucide-react';
 import { useProjectTasks } from '../../hooks/useProjectTasks';
 import { useProjectRole } from '../../hooks/useProjectRole';
@@ -338,10 +338,17 @@ interface TaskDetailProps {
 
 function TaskDetail({ task, canEdit, projectId, onUpdate, projectFiles }: TaskDetailProps) {
   const [description, setDescription] = useState(task.description || '');
+  const [title, setTitle] = useState(task.title || '');
   const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const titleDebounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const members = useWorkspaceStore(s => s.members[projectId] ?? []);
   const [showAssigneePicker, setShowAssigneePicker] = useState(false);
   const { user } = useAuth();
+  
+  useEffect(() => {
+    setTitle(task.title || '');
+    setDescription(task.description || '');
+  }, [task.id, task.title, task.description]);
   
   const { folders, files, createFolder, uploadFile, viewFile, downloadFile, deleteFile, uploads, dismissUpload, retryUpload } = projectFiles;
 
@@ -384,6 +391,14 @@ function TaskDetail({ task, canEdit, projectId, onUpdate, projectFiles }: TaskDe
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       if (canEdit) onUpdate(task.id, { description: value });
+    }, 500);
+  };
+
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+    if (titleDebounceRef.current) clearTimeout(titleDebounceRef.current);
+    titleDebounceRef.current = setTimeout(() => {
+      if (canEdit && value.trim()) onUpdate(task.id, { title: value.trim() });
     }, 500);
   };
 
@@ -433,18 +448,35 @@ function TaskDetail({ task, canEdit, projectId, onUpdate, projectFiles }: TaskDe
         </div>
 
         {/* Title */}
-        <h2
-          style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '24px',
-            lineHeight: '32px',
-            letterSpacing: '-0.02em',
-            fontWeight: 600,
-            color: '#e5e2e1',
-          }}
-        >
-          {task.title}
-        </h2>
+        {canEdit ? (
+          <input
+            value={title}
+            onChange={e => handleTitleChange(e.target.value)}
+            className="bg-transparent border-none outline-none w-full"
+            placeholder="Task title..."
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '24px',
+              lineHeight: '32px',
+              letterSpacing: '-0.02em',
+              fontWeight: 600,
+              color: '#e5e2e1',
+            }}
+          />
+        ) : (
+          <h2
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '24px',
+              lineHeight: '32px',
+              letterSpacing: '-0.02em',
+              fontWeight: 600,
+              color: '#e5e2e1',
+            }}
+          >
+            {task.title}
+          </h2>
+        )}
       </div>
 
       {/* Metadata grid */}

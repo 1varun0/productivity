@@ -27,6 +27,8 @@ interface NexusState {
   fetchCollections: () => Promise<void>;
   fetchTemplates: () => Promise<void>;
   createCollection: (name: string) => Promise<NoteCollection | null>;
+  updateCollection: (id: string, name: string) => Promise<void>;
+  deleteCollection: (id: string) => Promise<void>;
   setActiveCollectionId: (id: string | null) => void;
   addNote: (note: Partial<Note>, collectionId?: string) => Promise<Note | null>;
   updateNote: (id: string, updates: Partial<Note>, collectionId?: string) => Promise<void>;
@@ -161,6 +163,33 @@ export const useNexusStore = create<NexusState>((set, get) => ({
     } catch (err: any) {
       set({ error: err.message });
       return null;
+    }
+  },
+
+  updateCollection: async (id, name) => {
+    try {
+      set(state => ({
+        collections: state.collections.map(c => c.id === id ? { ...c, name } : c)
+      }));
+      const { error } = await supabase.from('note_collections').update({ name }).eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      set({ error: err.message });
+      get().fetchCollections();
+    }
+  },
+
+  deleteCollection: async (id) => {
+    try {
+      set(state => ({
+        collections: state.collections.filter(c => c.id !== id),
+        activeCollectionId: state.activeCollectionId === id ? null : state.activeCollectionId
+      }));
+      const { error } = await supabase.from('note_collections').delete().eq('id', id);
+      if (error) throw error;
+    } catch (err: any) {
+      set({ error: err.message });
+      get().fetchCollections();
     }
   },
 

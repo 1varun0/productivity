@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { Search, Plus, Loader2, Lightbulb, Clock } from 'lucide-react';
+import { Search, Plus, Loader2, Lightbulb, Clock, Edit2, Trash2, Check, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NexusBlocksIcon } from '@/components/icons/NexusBlocksIcon';
 import type { Note } from '../types';
@@ -18,7 +18,7 @@ interface NexusViewProps {
 }
 
 export function NexusView({ isOverlay = false }: NexusViewProps) {
-  const { notes, collections, activeCollectionId, isLoading, fetchNotes, fetchTags, fetchCollections, subscribeToNotes, unsubscribeFromNotes, deleteNote, createCollection, setActiveCollectionId, openTemplateGallery, closeTemplateGallery } = useNexusStore();
+  const { notes, collections, activeCollectionId, isLoading, fetchNotes, fetchTags, fetchCollections, subscribeToNotes, unsubscribeFromNotes, deleteNote, createCollection, updateCollection, deleteCollection, setActiveCollectionId, openTemplateGallery, closeTemplateGallery } = useNexusStore();
   const openSingle = useWorkspaceStore(state => state.openSingle);
   
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,7 +26,16 @@ export function NexusView({ isOverlay = false }: NexusViewProps) {
   const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
   const [isCreatingCollection, setIsCreatingCollection] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState('');
+  const [editingCollectionId, setEditingCollectionId] = useState<string | null>(null);
+  const [editingCollectionName, setEditingCollectionName] = useState('');
   const [isSaveTemplateModalOpen, setIsSaveTemplateModalOpen] = useState(false);
+
+  const handleEditCollectionSave = async () => {
+    if (editingCollectionId && editingCollectionName.trim()) {
+      await updateCollection(editingCollectionId, editingCollectionName.trim());
+    }
+    setEditingCollectionId(null);
+  };
 
   useEffect(() => {
     fetchTags();
@@ -131,19 +140,56 @@ export function NexusView({ isOverlay = false }: NexusViewProps) {
             Daily Notes
           </button>
 
-          {collections.map(c => (
-            <button
-              key={c.id}
-              onClick={() => { setViewMode('notes'); setActiveCollectionId(c.id); }}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-300 flex items-center gap-2 ${activeCollectionId === c.id
-                ? 'bg-white/5 text-[#e5e2e1] shadow-[0_0_15px_rgba(255,255,255,0.03)]'
-                : 'text-[#928f9e] hover:text-[#c8c4d5] hover:bg-white/[0.02]'
-                }`}
-            >
-              <div className={`w-1.5 h-1.5 rounded-full ${activeCollectionId === c.id ? 'bg-primary' : 'bg-white/20'}`} />
-              <span className="truncate">{c.name}</span>
-            </button>
-          ))}
+          {collections.map(c => {
+            const isEditing = editingCollectionId === c.id;
+            
+            return (
+              <div key={c.id} className="relative group/col">
+                {isEditing ? (
+                  <div className="flex items-center gap-2 px-3 py-1.5 mt-1 bg-white/5 rounded-md border border-white/10">
+                    <input 
+                      autoFocus
+                      value={editingCollectionName}
+                      onChange={e => setEditingCollectionName(e.target.value)}
+                      onKeyDown={e => {
+                        if (e.key === 'Enter') handleEditCollectionSave();
+                        if (e.key === 'Escape') setEditingCollectionId(null);
+                      }}
+                      className="w-full bg-transparent outline-none text-xs text-[#e5e2e1]"
+                    />
+                    <button onClick={handleEditCollectionSave} className="text-[#928f9e] hover:text-[#e5e2e1]"><Check size={12}/></button>
+                    <button onClick={() => setEditingCollectionId(null)} className="text-[#928f9e] hover:text-[#ffb4ab]"><X size={12}/></button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => { setViewMode('notes'); setActiveCollectionId(c.id); }}
+                    className={`group/btn w-full text-left px-3 py-2 rounded-md text-sm transition-all duration-300 flex items-center gap-2 ${activeCollectionId === c.id
+                      ? 'bg-white/5 text-[#e5e2e1] shadow-[0_0_15px_rgba(255,255,255,0.03)]'
+                      : 'text-[#928f9e] hover:text-[#c8c4d5] hover:bg-white/[0.02]'
+                      }`}
+                  >
+                    <div className={`w-1.5 h-1.5 rounded-full ${activeCollectionId === c.id ? 'bg-primary' : 'bg-white/20'}`} />
+                    <span className="truncate flex-1">{c.name}</span>
+                    
+                    <div className="hidden group-hover/col:flex items-center gap-1 opacity-50 hover:opacity-100 transition-opacity">
+                      <div 
+                        onClick={(e) => { e.stopPropagation(); setEditingCollectionId(c.id); setEditingCollectionName(c.name); }}
+                        className="p-1 hover:text-[#e5e2e1]"
+                      >
+                        <Edit2 size={12} />
+                      </div>
+                      <div 
+                        onClick={(e) => { e.stopPropagation(); if(confirm('Delete collection?')) deleteCollection(c.id); }}
+                        className="p-1 hover:text-[#ffb4ab]"
+                      >
+                        <Trash2 size={12} />
+                      </div>
+                    </div>
+                  </button>
+                )}
+              </div>
+            );
+          })}
 
           {isCreatingCollection && (
             <div className="px-3 py-2 mt-2">

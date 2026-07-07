@@ -43,7 +43,24 @@ export function HabitRow({ habit, days, hoveredColIndex, setHoveredColIndex, isD
 
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const deleteHabit = useHabits((state) => state.deleteHabit);
+  const updateHabit = useHabits((state) => state.updateHabit);
   const rowRef = useRef<HTMLDivElement>(null);
+
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editName, setEditName] = useState(habit.name);
+
+  useEffect(() => {
+    setEditName(habit.name);
+  }, [habit.name]);
+
+  const handleSaveName = () => {
+    if (editName.trim() && editName.trim() !== habit.name) {
+      updateHabit(habit.id, { name: editName.trim() });
+    } else {
+      setEditName(habit.name);
+    }
+    setIsEditingName(false);
+  };
 
   useEffect(() => {
     if (!isConfirmingDelete) return;
@@ -96,9 +113,31 @@ export function HabitRow({ habit, days, hoveredColIndex, setHoveredColIndex, isD
                 className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-80 group-hover/row:opacity-100 transition-opacity duration-500" 
                 style={{ backgroundColor: habit.color }} 
               />
-              <span className="text-[12px] tracking-wide text-[#e2e2e2] font-medium truncate w-full group-hover/row:text-white transition-colors duration-500" style={{ WebkitMaskImage: 'linear-gradient(to right, black 80%, transparent 100%)' }}>
-                {habit.name}
-              </span>
+              {isEditingName ? (
+                <input
+                  autoFocus
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  onBlur={handleSaveName}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSaveName();
+                    if (e.key === 'Escape') {
+                      setEditName(habit.name);
+                      setIsEditingName(false);
+                    }
+                  }}
+                  className="w-full bg-transparent border-none outline-none text-[12px] tracking-wide text-white font-medium"
+                />
+              ) : (
+                <span 
+                  onDoubleClick={() => setIsEditingName(true)}
+                  className="text-[12px] tracking-wide text-[#e2e2e2] font-medium truncate w-full group-hover/row:text-white transition-colors duration-500 cursor-text" 
+                  style={{ WebkitMaskImage: 'linear-gradient(to right, black 80%, transparent 100%)' }}
+                  title="Double-click to rename"
+                >
+                  {habit.name}
+                </span>
+              )}
               <div className="flex items-center justify-end gap-1 ml-auto flex-shrink-0 w-12">
                 <span className="text-[10px] tracking-widest font-bold text-white/30 group-hover/row:text-white/50 transition-colors duration-500">{streak}d</span>
                 {streak >= 3 && <span className="text-[10px] grayscale opacity-50 group-hover/row:grayscale-0 group-hover/row:opacity-100 transition-all duration-500">🔥</span>}
